@@ -1,3 +1,4 @@
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require("path");
 
 /*We are basically telling webpack to take index.js from entry. Then check for all file extensions in resolve. 
@@ -17,11 +18,11 @@ module.exports={
         /** "path"
          * the folder path of the output file 
          */
-        path: path.resolve(__dirname, "public"),
+        path: path.resolve(__dirname, "./dist"),
         /** "filename"
          * the name of the output file 
          */
-        filename: "main.js"
+        filename: "index_bundle.js"
     },
     /** "target"
      * setting "node" as target app (server side), and setting it as "web" is 
@@ -32,7 +33,7 @@ module.exports={
         /** "port" 
          * port of dev server
         */
-        port: "9500",
+        port: "8080",
         /** "static" 
          * This property tells Webpack what static file it should serve
         */
@@ -74,5 +75,10 @@ module.exports={
                 use:  'babel-loader' //loader which we are going to use
             }
         ]
-    }
+    },
+    plugins: [
+        new HtmlWebpackPlugin({
+          template: path.join(__dirname, 'public', 'index.html')
+        })
+      ]
 }

@@ -6,7 +6,7 @@
   "repository": "https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-1/gruppe-2/straba.git",
   "scripts": {
     "start": "webpack-dev-server .",
-    "build": "Webpack .",
+    "build": "webpack .",
     "test": "test"
   },
   "author": "Group 2",
@@ -24,6 +24,7 @@
     "eslint-config-google": "^0.14.0",
     "eslint-config-prettier": "^8.6.0",
     "eslint-plugin-jest": "^27.2.1",
+    "html-webpack-plugin": "^5.5.0",
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "prettier": "^2.8.3",
