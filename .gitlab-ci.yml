@@ -19,14 +19,18 @@ cache:
     - .yarn
 
 stages:
+  - server
+  # - test
   - build
-  - serverSetup
-  - test
-  - coverage
+  # - coverage
+  # - config
+
+server:
+  stage: server
+  script:
+    - yarn start
 
 build:
   stage: build
   script:
-    - yarn prettier --write index.js
-    - yarn run eslint
-
+    - yarn run build
