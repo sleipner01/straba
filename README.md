@@ -36,7 +36,7 @@ or use homebrew and install the latest node-release
 
 
 #### ESLint
-1. In the terminal, run: `yarn `
+1. In the terminal, run: `yarn eslint`
 
 
 ***
