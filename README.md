@@ -28,6 +28,11 @@ or use homebrew and install the latest node-release
 
 ## Running dev-environment
 
+#### React
+1. In the terminal, run: `yarn start`
+2. The browser will open at localhost:8080
+3. The server is configured to refresh when changes to files are made
+
 #### Nodemon
 1. In the terminal, run: `nodemon index.js localhost 8080`
 
