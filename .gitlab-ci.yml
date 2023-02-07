@@ -27,6 +27,6 @@ stages:
 build:
   stage: build
   script:
-    - yarn prettier
+    - prettier
     - yarn run eslint
 
