@@ -19,16 +19,17 @@ cache:
     - .yarn
 
 stages:
-  - server
+  # - server
   # - test
   - build
   # - coverage
   # - config
 
-server:
-  stage: server
-  script:
-    - yarn start
+# server:
+#   stage: server
+#   script:
+#     - yarn start
+This code runs forever in the pipeline. Needs to be fixed.
 
 build:
   stage: build
