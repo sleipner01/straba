@@ -4,6 +4,11 @@
   "description": "Better than Strava",
   "main": "index.js",
   "repository": "https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-1/gruppe-2/straba.git",
+  "scripts": {
+    "start": "webpack-dev-server .",
+    "build": "Webpack .",
+    "test": "test"
+  },
   "author": "Group 2",
   "license": "MIT",
   "dependencies": {
