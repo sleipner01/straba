@@ -1,0 +1,14 @@
+{
+  "name": "Straba",
+  "version": "1.0.0",
+  "description": "Better than Strava",
+  "main": "index.js",
+  "repository": "https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-1/gruppe-2/straba.git",
+  "author": "Group 2",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^8.33.0",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.3"
+  }
+}
