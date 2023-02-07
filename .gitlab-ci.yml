@@ -27,6 +27,6 @@ stages:
 build:
   stage: build
   script:
-    - prettier
+    - yarn prettier --write index.js
     - yarn run eslint
 
