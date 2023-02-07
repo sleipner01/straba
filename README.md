@@ -2,6 +2,7 @@
 ## Description
 To be described
 
+***
 
 ## Installation
 
@@ -40,6 +41,12 @@ or use homebrew and install the latest node-release
 
 
 ***
+
+## Conventional Commits
+https://www.conventionalcommits.org/en/v1.0.0/
+
+***
+
 
 ## Authors and acknowledgment
 - Elin Haugum | elihaugu@stud.ntnu.no
