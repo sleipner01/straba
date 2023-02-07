@@ -19,9 +19,25 @@ or use homebrew and install the latest node-release
 
 ### Repo setup
 
-2. Clone this repository
-3. Open a new terminal and navigate to this folder
-4. Run: `yarn install`
+1. Clone this repository
+2. Open a new terminal and navigate to this folder
+3. Run: `yarn install`
+
+***
+
+## Running dev-environment
+
+#### Nodemon
+1. In the terminal, run: `nodemon index.js localhost 8080`
+
+
+#### Prettier
+1. In the terminal, run: `yarn prettier`
+
+
+#### ESLint
+1. In the terminal, run: `yarn `
+
 
 ***
 
@@ -35,5 +51,5 @@ or use homebrew and install the latest node-release
 ***
 
 ## License
-
+MIT
 
