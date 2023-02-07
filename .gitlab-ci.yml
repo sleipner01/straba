@@ -28,6 +28,10 @@ cache:
     - node_modules/
     - .yarn
 
+build:
+  - yarn prettier
+  - yarn run eslint
+
 # test_async:
 #   script:
 #     - npm install
