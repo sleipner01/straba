@@ -1,4 +1,4 @@
-# Straba
+# Straβa
 ## Description
 To be described
 
