@@ -20,9 +20,9 @@ cache:
 
 stages:
   # - server
-  # - test
-  - build
+  - test
   # - coverage
+  - build
   # - config
 
 # server:
