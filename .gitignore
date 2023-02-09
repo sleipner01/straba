@@ -133,3 +133,6 @@ dist
 # Build folders
 dist
 build
+
+# Apple
+.DS_Store
