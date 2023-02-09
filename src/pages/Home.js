@@ -1,7 +1,7 @@
 import React, {useEffect, Fragment } from 'react';
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 
 const Home = () => {
@@ -28,7 +28,7 @@ const Home = () => {
     const handleLogout = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigate("/");
+            navigate("/login");
             console.log("Signed out successfully")
         }).catch((error) => {
             // An error happened.
@@ -44,9 +44,9 @@ const Home = () => {
                     </p>
 
                     <div>
-                        <button onClick={handleLogout}>
+                        <NavLink to="/login" onClick={handleLogout}>
                             Logout
-                        </button>
+                        </NavLink>
                     </div>
                 </nav>
             </Fragment>
