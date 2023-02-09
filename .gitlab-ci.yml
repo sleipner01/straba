@@ -1,0 +1,37 @@
+# You can copy and paste this template into a new `.gitlab-ci.yml` file.
+# You should not add this template to an existing `.gitlab-ci.yml` file by using the `include:` keyword.
+#
+# To contribute improvements to CI/CD templates, please follow the Development guide at:
+# https://docs.gitlab.com/ee/development/cicd/templates.html
+# This specific template is located at:
+# https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Nodejs.gitlab-ci.yml
+
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/node/tags/
+image: node:latest
+
+before_script:
+  - yarn install --cache-folder .yarn
+
+cache:
+  paths:
+    - node_modules/
+    - .yarn
+
+stages:
+  # - server
+  # - test
+  - build
+  # - coverage
+  # - config
+
+# server:
+#   stage: server
+#   script:
+#     - yarn start
+# This code runs forever in the pipeline. Needs to be fixed.
+
+build:
+  stage: build
+  script:
+    - yarn run build
