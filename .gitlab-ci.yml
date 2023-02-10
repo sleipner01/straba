@@ -10,25 +10,29 @@
 # https://hub.docker.com/r/library/node/tags/
 image: node:latest
 
-before_script:
-  - yarn install --cache-folder .yarn
-
 cache:
   paths:
     - node_modules/
     - .yarn
 
 stages:
+  - install
   - test
   - lint
   - build
   - release
+
+install:
+  stage: install
+  script:
+    - yarn install --cache-folder .yarn
 
 unit-test:
   stage: test
   script:
     - yarn test:ci
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  needs: ["install"]
   artifacts:
     paths:
       - coverage/
@@ -39,11 +43,13 @@ unit-test:
 
 lint:
   stage: lint
+  needs: ["install"]
   script:
     - yarn lint
 
 build:
   stage: build
+  needs: ["install", "test"]
   script:
     - yarn run build
 
