@@ -136,3 +136,6 @@ build
 
 # Apple
 .DS_Store
+
+# Junit
+junit.xml
