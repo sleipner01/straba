@@ -12,7 +12,7 @@ const firebaseConfig = {
   storageBucket: 'straba-64026.appspot.com',
   messagingSenderId: '417560124897',
   appId: '1:417560124897:web:af4cdaa50391982bdb86a0',
-  measurementId: 'G-FF8KE98449'
+  measurementId: 'G-FF8KE98449',
 };
 
 // Initialize Firebase

@@ -7,10 +7,16 @@
     },
     "extends": [
         "react-app",
-        // "prettier",
-        // "prettier/react"
+        "prettier",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": [
+        "prettier"
     ],
     "rules": {
+        "prettier/prettier": "error",
+        "arrow-body-style": "off",
+        "prefer-arrow-callback": "off",
         "semi": [
             1,
             "always"
