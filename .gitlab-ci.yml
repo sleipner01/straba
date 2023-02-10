@@ -19,25 +19,22 @@ cache:
     - .yarn
 
 stages:
-  # - server
   - test
-  # - coverage
   - lint
   - build
-  # - config
 
-# server:
-#   stage: server
-#   script:
-#     - yarn start
-# This code runs forever in the pipeline. Needs to be fixed.
-
-
-test:
+unit-test:
   stage: test
   script:
-    - yarn test
-
+    - yarn test:ci
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  artifacts:
+    paths:
+      - coverage/
+    when: always
+    reports:
+      junit:
+        - junit.xml
 
 lint:
   stage: lint
