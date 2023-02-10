@@ -32,13 +32,19 @@ stages:
 #     - yarn start
 # This code runs forever in the pipeline. Needs to be fixed.
 
-build:
-  stage: build
+
+test:
+  stage: test
   script:
-    - yarn run build
+    - yarn test
 
 
 lint:
   stage: lint
   script:
     - yarn lint
+
+build:
+  stage: build
+  script:
+    - yarn run build
