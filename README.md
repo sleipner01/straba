@@ -30,20 +30,28 @@ or use homebrew and install the latest node-release
 
 #### React
 1. In the terminal, run: `yarn start`
-2. The browser will open at localhost:8080
+2. The browser will open at localhost:3000
 3. The server is configured to refresh when changes to files are made
 
-#### Nodemon
-1. In the terminal, run: `nodemon index.js localhost 8080`
-
+<!-- #### Nodemon
+1. In the terminal, run: `nodemon index.js localhost {port}` -->
 
 #### Prettier
-1. In the terminal, run: `yarn prettier`
+1. In the terminal, run: `yarn format`
+
+Prettier will run automatically when saving as well
 
 
 #### ESLint
-1. In the terminal, run: `yarn eslint`
+1. In the terminal, run: `yarn lint`
 
+To fix all errors or warnings, run: `yarn lint:fix`
+
+More information: https://eslint.org/docs/latest/use/command-line-interface
+
+
+#### Tests
+1. In the terminal, run: `yarn test`
 
 ***
 
