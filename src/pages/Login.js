@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
@@ -14,16 +14,16 @@ const Login = () => {
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                navigate("/")
+                navigate('/');
                 console.log(user);
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode, errorMessage)
+                console.log(errorCode, errorMessage);
             });
 
-    }
+    };
 
     return (
         <Fragment>
@@ -77,7 +77,7 @@ const Login = () => {
                 </div>
             </section>
         </Fragment>
-    )
-}
+    );
+};
 
-export default Login
+export default Login;

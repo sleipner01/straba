@@ -6,18 +6,18 @@ import { auth } from '../firebase';
 const Signup = () => {
     const navigate = useNavigate();
  
-    const [email, setEmail] = useState('')
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
  
     const onSubmit = async (e) => {
-      e.preventDefault()
+      e.preventDefault();
      
       await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
             // Signed in
             const user = userCredential.user;
             console.log(user);
-            navigate("/login")
+            navigate('/login');
             // ...
         })
         .catch((error) => {
@@ -28,7 +28,7 @@ const Signup = () => {
         });
  
    
-    }
+    };
  
   return (
     <main >        
@@ -84,7 +84,7 @@ const Signup = () => {
             </div>
         </section>
     </main>
-  )
-}
+  );
+};
  
-export default Signup
+export default Signup;

@@ -1,5 +1,5 @@
 import React, {useEffect, Fragment } from 'react';
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -13,27 +13,27 @@ const Home = () => {
                 // https://firebase.google.com/docs/reference/js/firebase.User
                 const uid = user.uid;
                 // ...
-                console.log("uid", uid)
+                console.log('uid', uid);
             } else {
                 // User is signed out
                 // ...
-                console.log("user is logged out")
+                console.log('user is logged out');
             }
         });
 
-    }, [])
+    }, []);
 
     const navigate = useNavigate();
 
     const handleLogout = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
-            navigate("/login");
-            console.log("Signed out successfully")
+            navigate('/login');
+            console.log('Signed out successfully');
         }).catch((error) => {
             // An error happened.
         });
-    }
+    };
 
     return (
         <section>
@@ -51,7 +51,7 @@ const Home = () => {
                 </nav>
             </Fragment>
         </section>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
