@@ -18,7 +18,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
-    "react-scripts": "5.0.1"
+    "react-scripts": "5.0.1",
+    "sass": "^1.58.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +28,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --ext js,jsx,ts,tsx src",
     "lint:fix": "eslint --fix --ext js,jsx,ts,tsx src",
-    "format": "prettier --write src/**/*.{js,css} --config ./.prettierrc"
+    "format": "prettier --write src/**/*.{js,css,scss} --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
