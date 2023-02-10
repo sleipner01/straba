@@ -50,6 +50,9 @@ To fix all errors or warnings, run: `yarn lint:fix`
 More information: https://eslint.org/docs/latest/use/command-line-interface
 
 
+#### Tests
+1. In the terminal, run: `yarn test`
+
 ***
 
 ## Conventional Commits

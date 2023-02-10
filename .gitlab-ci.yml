@@ -22,6 +22,7 @@ stages:
   # - server
   - test
   # - coverage
+  - lint
   - build
   # - config
 
@@ -35,3 +36,9 @@ build:
   stage: build
   script:
     - yarn run build
+
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
