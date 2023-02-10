@@ -22,6 +22,7 @@ stages:
   # - server
   - test
   # - coverage
+  - lint
   - build
   # - config
 
@@ -30,6 +31,18 @@ stages:
 #   script:
 #     - yarn start
 # This code runs forever in the pipeline. Needs to be fixed.
+
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+
+lint:
+  stage: lint
+  script:
+    - yarn lint
 
 build:
   stage: build
