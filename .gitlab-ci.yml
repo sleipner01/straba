@@ -49,7 +49,7 @@ lint:
 
 build:
   stage: build
-  needs: ["install", "test"]
+  needs: ["install"]
   script:
     - yarn run build
 
