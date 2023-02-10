@@ -44,6 +44,8 @@ or use homebrew and install the latest node-release
 #### ESLint
 1. In the terminal, run: `yarn eslint`
 
+More information: https://eslint.org/docs/latest/use/command-line-interface
+
 
 ***
 
