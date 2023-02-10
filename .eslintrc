@@ -1,6 +1,7 @@
 {
     "extends": "react-app",
     "rules": {
-        // Adding rules
+        "semi": [1, "always"],
+        "quotes": [1, "single"]
     }
 }
