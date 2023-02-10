@@ -33,16 +33,19 @@ or use homebrew and install the latest node-release
 2. The browser will open at localhost:3000
 3. The server is configured to refresh when changes to files are made
 
-#### Nodemon
-1. In the terminal, run: `nodemon index.js localhost {port}`
-
+<!-- #### Nodemon
+1. In the terminal, run: `nodemon index.js localhost {port}` -->
 
 #### Prettier
-1. In the terminal, run: `yarn prettier`
+1. In the terminal, run: `yarn format`
+
+Prettier will run automatically when saving as well
 
 
 #### ESLint
-1. In the terminal, run: `yarn eslint --ext js,jsx,ts,tsx src`
+1. In the terminal, run: `yarn lint`
+
+To fix all errors or warnings, run: `yarn lint:fix`
 
 More information: https://eslint.org/docs/latest/use/command-line-interface
 
