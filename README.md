@@ -17,12 +17,23 @@ Mac:
 or use homebrew and install the latest node-release
 2. In a terminal, run: `npm install -g yarn`
 
+Linux:
+1. In a terminal, run: `sudo apt install npm`
+2. Then run: `sudo npm install -g yarn`
+
 
 ### Repo setup
 
 1. Clone this repository
 2. Open a new terminal and navigate to this folder
 3. Run: `yarn install`
+
+### Issues
+Linux:
+#### The engine "node" is incompatible with this module. Expected version
+1. In a terminal, run: `sudo npm install -g n`
+2. Then run: `sudo n stable`. You should now have the latest stable version of node. To doublecheck this, run `node -v`
+3. If the terminal is still showing the old version, run `hash -r` or `rehash` and then run `node -v` again.
 
 ***
 
