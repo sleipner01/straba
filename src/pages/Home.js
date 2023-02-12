@@ -39,7 +39,6 @@ const Home = () => {
       <Fragment>
         <nav>
           <p>Welcome Home</p>
-
           <div>
             <NavLink to='/login' onClick={handleLogout}>
               Logout
