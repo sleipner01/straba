@@ -12,6 +12,10 @@ const Home = () => {
         const uid = user.uid;
         // ...
         console.log('uid', uid);
+        console.log('name', user.displayName);
+        console.log('name', user.email);
+
+        document.getElementById('userName').innerHTML = user.displayName;
       } else {
         // User is signed out
         // ...
@@ -38,7 +42,9 @@ const Home = () => {
     <section>
       <Fragment>
         <nav>
-          <p>Welcome Home</p>
+          <p>
+            Welcome <span id='userName'></span>
+          </p>
           <div>
             <NavLink to='/login' onClick={handleLogout}>
               Logout
