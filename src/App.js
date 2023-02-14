@@ -9,14 +9,16 @@ import './App.scss';
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import Sidebar from './components/navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
+import Sidebar from './components/sidebar/Sidebar';
+import Topbar from './components/topbar/Topbar';
 
 const App = ({ pagepath }) => {
   const [user, loading, error] = useAuthState(auth);
 
   return (
     <Fragment>
-      {!user && <Sidebar />}
+      {user && <Sidebar />}
       <h1>Straβa!</h1>
       <Router>
         <div>
