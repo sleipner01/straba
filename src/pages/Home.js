@@ -19,7 +19,7 @@ const Home = () => {
 
         userDisplayName.current.innerHTML = user.displayName
           ? user.displayName
-          : process.env.REACT_APP_DEFAULT_USER_WELCOME_NAME;
+          : "Chief";
       } else {
         // User is signed out
         // ...
