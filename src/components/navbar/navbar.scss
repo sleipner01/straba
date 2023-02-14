@@ -1,0 +1,14 @@
+$nav_background: #111;
+$nav_text_color: #fff;
+
+.sidebar {
+	height: 30px;
+	width: 100%;
+	background-color: $nav_background;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	padding-top: 20px;
+	transition: 0.5s;
+	color: $nav_text_color;
+	line-height: 0px;
+}

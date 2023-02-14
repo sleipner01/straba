@@ -6,9 +6,17 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 
-function App() {
+import { auth } from './firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import Sidebar from './components/navbar/Navbar';
+
+const App = ({ pagepath }) => {
+  const [user, loading, error] = useAuthState(auth);
+
   return (
     <Fragment>
+      {!user && <Sidebar />}
       <h1>Straβa!</h1>
       <Router>
         <div>
@@ -23,6 +31,6 @@ function App() {
       </Router>
     </Fragment>
   );
-}
+};
 
 export default App;
