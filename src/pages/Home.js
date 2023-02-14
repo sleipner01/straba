@@ -17,9 +17,7 @@ const Home = () => {
         console.log('displayname', user.displayName);
         console.log('email', user.email);
 
-        userDisplayName.current.innerHTML = user.displayName
-          ? user.displayName
-          : "Chief";
+        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
       } else {
         // User is signed out
         // ...
