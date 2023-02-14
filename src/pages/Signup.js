@@ -24,7 +24,6 @@ const Signup = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        // ..
       });
   };
 
@@ -50,14 +49,6 @@ const Signup = () => {
         console.log(errorCode, errorMessage);
         // ..
       });
-
-    // const result = await signInWithPopup(auth, provider);
-
-    // The signed-in user info.
-    // const user = result.user;
-    // This gives you a Google Access Token.
-    // const credential = GoogleAuthProvider.credentialFromResult(result);
-    // const token = credential.accessToken;
   };
 
   return (
@@ -65,8 +56,8 @@ const Signup = () => {
       <section>
         <div>
           <div>
+            <button onClick={onSignInWithGoogle}>Sign in with Google</button>
             <form>
-              <button onClick={onSignInWithGoogle}>Sign in with Google</button>
               <div>
                 <label htmlFor='email-address'>Email address</label>
                 <input

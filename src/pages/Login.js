@@ -52,8 +52,8 @@ const Login = () => {
     <Fragment>
       <section>
         <div>
+          <button onClick={onSignInWithGoogle}>Sign in with Google</button>
           <form>
-            <button onClick={onSignInWithGoogle}>Sign in with Google</button>
             <div>
               <label htmlFor='email-address'>Email address</label>
               <input
