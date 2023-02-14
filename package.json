@@ -5,6 +5,9 @@
   "repository": "https://gitlab.stud.idi.ntnu.no/tdt4140-2023/landsby-1/gruppe-2/straba.git",
   "private": true,
   "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@mui/icons-material": "^5.11.9",
     "@mui/material": "^5.11.9",
     "@mui/styled-engine-sc": "^5.11.9",
     "@testing-library/jest-dom": "^5.14.1",
