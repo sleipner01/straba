@@ -19,13 +19,13 @@ const App = ({ pagepath }) => {
 
   return (
     <Fragment>
-      <Box>
+      <Box sx={{ flexDirection: 'row' }} class='topbar'>
         <Topbar />
       </Box>
-      <Box>
+      <Box sx={{ flexDirection: 'row' }} class='sidebar'>
         <Sidebar />
       </Box>
-      <Box>
+      <Box sx={{ flexDirection: 'row' }} class='content'>
         <h1>Straβa!</h1>
         <Router>
           <div>
@@ -38,6 +38,12 @@ const App = ({ pagepath }) => {
             </section>
           </div>
         </Router>
+      </Box>
+      <Box class='box1'>
+        <h1>DETTE ER EN BOX</h1>
+      </Box>
+      <Box class='box2'>
+        <h1>DETTE ER OGSÅ EN SATANS BOX</h1>
       </Box>
     </Fragment>
   );
