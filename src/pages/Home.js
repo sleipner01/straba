@@ -1,9 +1,11 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
 const Home = () => {
+  const userDisplayName = useRef();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -12,6 +14,10 @@ const Home = () => {
         const uid = user.uid;
         // ...
         console.log('uid', uid);
+        console.log('displayname', user.displayName);
+        console.log('email', user.email);
+
+        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
       } else {
         // User is signed out
         // ...
@@ -38,8 +44,9 @@ const Home = () => {
     <section>
       <Fragment>
         <nav>
-          <p>Welcome Home</p>
-
+          <p>
+            Welcome <span ref={userDisplayName}></span>
+          </p>
           <div>
             <NavLink to='/login' onClick={handleLogout}>
               Logout

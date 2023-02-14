@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 
 const Signup = () => {
@@ -24,16 +24,39 @@ const Signup = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+      });
+  };
+
+  const onSignInWithGoogle = async (e) => {
+    e.preventDefault();
+
+    // Sign in using a popup.
+    const provider = new GoogleAuthProvider();
+    provider.addScope('profile');
+    provider.addScope('email');
+
+    await signInWithPopup(auth, provider)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log(user);
+        navigate('/');
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
         // ..
       });
   };
 
   return (
-    <main>
+    <Fragment>
       <section>
         <div>
           <div>
-            <h1> FocusApp </h1>
+            <button onClick={onSignInWithGoogle}>Sign in with Google</button>
             <form>
               <div>
                 <label htmlFor='email-address'>Email address</label>
@@ -70,7 +93,7 @@ const Signup = () => {
           </div>
         </div>
       </section>
-    </main>
+    </Fragment>
   );
 };
 
