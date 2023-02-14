@@ -2,7 +2,6 @@ import React, { useEffect, Fragment, useRef } from 'react';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { name } from 'faker';
 
 const Home = () => {
   const userDisplayName = useRef();
