@@ -1,5 +1,5 @@
 import './topbar.scss';
-import { Search } from '@mui/icons-material';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Topbar() {
   return (
@@ -9,7 +9,7 @@ export default function Topbar() {
       </div>
       <div className='topbarCenter'>
         <div className='searchbar'>
-          <Search className='searchIcon' />
+          <SearchIcon className='searchIcon' />
           <input placeholder='Search for friend, post or video' className='searchInput' />
         </div>
       </div>
