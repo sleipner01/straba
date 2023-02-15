@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 
 import Topbar from '../components/topbar/Topbar';
 import Sidebar from '../components/sidebar/Sidebar';
-import { Box } from '@mui/system';
+import { Box } from '@mui/material';
 
 const Home = () => {
   const userDisplayName = useRef();
