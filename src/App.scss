@@ -1,11 +1,11 @@
 .mainContainer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    overflow-y: hidden;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow-y: hidden;
 }
 
 .content {
-    flex: 1 0 auto;
-    overflow-y: auto;
+  flex: 1 0 auto;
+  overflow-y: auto;
 }

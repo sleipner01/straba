@@ -46,8 +46,6 @@ const Home = () => {
 
   return (
     <Fragment>
-      <Topbar />
-      <Sidebar />
       <Box className='content'>
         <h1>Straβa!</h1>
         <div>
