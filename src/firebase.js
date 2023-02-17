@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import { getAnalytics, logEvent, isSupported } from 'firebase/analytics';
 // import * as firebaseui from 'firebaseui'
 // import 'firebaseui/dist/firebaseui.css'
 // Your web app's Firebase configuration
@@ -17,8 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-logEvent(analytics, 'notification_received');
+const analytics = isSupported().then((yes) => (yes ? getAnalytics(app) : null));
 
 export const auth = getAuth(app);
 export default app;
