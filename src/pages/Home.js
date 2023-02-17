@@ -3,6 +3,8 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
+import { Box } from '@mui/material';
+
 const Home = () => {
   const userDisplayName = useRef();
 
@@ -41,20 +43,25 @@ const Home = () => {
   };
 
   return (
-    <section>
-      <Fragment>
-        <nav>
-          <p>
-            Welcome <span ref={userDisplayName}></span>
-          </p>
-          <div>
-            <NavLink to='/login' onClick={handleLogout}>
-              Logout
-            </NavLink>
-          </div>
-        </nav>
-      </Fragment>
-    </section>
+    <Fragment>
+      <Box className='content'>
+        <h1>Straβa!</h1>
+        <div>
+          <section>
+            <nav>
+              <p>
+                Welcome <span ref={userDisplayName}></span>
+              </p>
+              <div>
+                <NavLink to='/login' onClick={handleLogout}>
+                  Logout
+                </NavLink>
+              </div>
+            </nav>
+          </section>
+        </div>
+      </Box>
+    </Fragment>
   );
 };
 
