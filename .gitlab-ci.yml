@@ -57,9 +57,9 @@ build:
     when: on_success
     paths:
       - node_modules/
-    only:
-    - main
-    - development
+    rules:
+     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+     - if: $CI_COMMIT_BRANCH == development
 
 release_job:
   stage: release
