@@ -57,6 +57,9 @@ build:
     when: on_success
     paths:
       - node_modules/
+    only:
+    - main
+    - development
 
 release_job:
   stage: release
