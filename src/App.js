@@ -9,6 +9,7 @@ import Topbar from './components/topbar/Topbar';
 import Authenticated from './utils/Authenticated';
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import WorkoutOverview from './pages/WorkoutOverview';
 
 function App() {
   const [user] = useAuthState(auth);
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route element={<Authenticated auth={user} />}>
             <Route path='/' element={<Home />} exact />
+            <Route path='/workouts' element={<WorkoutOverview />} />
           </Route>
           <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
