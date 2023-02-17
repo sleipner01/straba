@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div className='mainContainer'>
-      <Topbar />
+      <Topbar auth={user} />
       {user && <Sidebar />}
       <Router>
         <Routes>
