@@ -19,7 +19,7 @@ function App() {
       {user && <Sidebar />}
       <Router>
         <Routes>
-          <Route element={<Authenticated user={user} />}>
+          <Route element={<Authenticated auth={user} />}>
             <Route path='/' element={<Home />} exact />
           </Route>
           <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
