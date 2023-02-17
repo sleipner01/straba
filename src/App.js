@@ -1,11 +1,12 @@
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate } from 'react-router-dom';
 import { Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
+import Authenticated from './utils/Authenticated';
 import { auth } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 
@@ -18,9 +19,11 @@ function App() {
       {user && <Sidebar />}
       <Router>
         <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
+          <Route element={<Authenticated user={user} />}>
+            <Route path='/' element={<Home />} exact />
+          </Route>
+          <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
+          <Route path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
         </Routes>
       </Router>
     </div>
