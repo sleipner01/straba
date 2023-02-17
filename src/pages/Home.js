@@ -3,8 +3,6 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
-import Topbar from '../components/topbar/Topbar';
-import Sidebar from '../components/sidebar/Sidebar';
 import { Box } from '@mui/material';
 
 const Home = () => {
