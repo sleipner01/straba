@@ -5,6 +5,7 @@ export default function Topbar() {
   return (
     <div className='topbarContainer'>
       <div className='topbarLeft'>
+        <img src='/favicon.png' alt='test' className='topbarImg' />
         <span className='logo'>Straβa</span>
       </div>
       <div className='topbarCenter'>
@@ -13,9 +14,7 @@ export default function Topbar() {
           <input placeholder='Search for friend, post or video' className='searchInput' />
         </div>
       </div>
-      <div className='topbarRight'>
-        <img src='./assets/person/1.jpeg' alt='' className='topbarImg' />
-      </div>
+      <div className='topbarRight'></div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import './sidebar.scss';
-import { RssFeed } from '@mui/icons-material';
+import { FitnessCenter, Person } from '@mui/icons-material';
 
 export default function Sidebar() {
   return (
@@ -7,9 +7,26 @@ export default function Sidebar() {
       <div className='sidebarWrapper'>
         <ul className='sidebarList'>
           <li className='sidebarListItem'>
-            <RssFeed className='sidebarIcon' />
-            <span className='sidebarListItemText'>Workouts</span>
+            <Person className='personIcon' />
+            <span className='sidebarListPersonText'>Name</span>
           </li>
+          <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>View programs</span>
+          </li>
+          <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>New program</span>
+          </li>
+          {/* <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>Groups</span>
+          </li>
+          <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>Friends</span>
+          </li> */}
+          <hr className='sidebarLine' />
         </ul>
       </div>
     </div>
