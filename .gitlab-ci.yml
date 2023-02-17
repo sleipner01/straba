@@ -52,14 +52,15 @@ build:
   stage: build
   script:
     - yarn run build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == development
   artifacts:
     expire_in: 1 days
     when: on_success
     paths:
       - node_modules/
-    rules:
-     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-     - if: $CI_COMMIT_BRANCH == development
+
 
 release_job:
   stage: release
