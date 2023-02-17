@@ -41,7 +41,7 @@ unit-test:
     reports:
       junit:
         - junit.xml
-      cobertura: coverage/cobertura-coverage.xml
+      # cobertura: coverage/cobertura-coverage.xml
 
 lint:
   stage: lint
