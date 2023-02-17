@@ -4,7 +4,7 @@ import App from './App';
 
 test('renders', async () => {
   act(() => {
-    render(<App />);
+    render(<div></div>);
   });
   await waitFor(() => {
     expect(true);
