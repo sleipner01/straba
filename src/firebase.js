@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getAnalytics, logEvent, isSupported } from 'firebase/analytics';
+import { getAnalytics, isSupported } from 'firebase/analytics';
 // import * as firebaseui from 'firebaseui'
 // import 'firebaseui/dist/firebaseui.css'
 // Your web app's Firebase configuration
