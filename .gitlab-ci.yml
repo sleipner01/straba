@@ -75,7 +75,7 @@ release_job:
 pages:
   stage: deploy
   dependencies:
-    - test
+    - unit-test
   script:
     - mkdir .public
     - cp -r coverage/* .public
