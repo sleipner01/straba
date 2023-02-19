@@ -10,6 +10,7 @@ import { auth } from './firebase';
 import { Error, Loading, NoMatch } from './components/misc/usefulComponents';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
+import { Box } from '@mui/material';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
@@ -27,15 +28,17 @@ function App() {
       <Router>
         <Topbar auth={user} />
         {user && <Sidebar />}
-        <Routes>
-          <Route element={<Authenticated auth={user} />}>
-            <Route exact path='/' element={<Home />} />
-            <Route exact path='/workouts' element={<WorkoutOverview />} />
-          </Route>
-          <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
-          <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
-          <Route path='*' element={<NoMatch />} />
-        </Routes>
+        <Box className='content'>
+          <Routes>
+            <Route element={<Authenticated auth={user} />}>
+              <Route exact path='/' element={<Home />} />
+              <Route exact path='/workouts' element={<WorkoutOverview />} />
+            </Route>
+            <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
+            <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
+            <Route path='*' element={<NoMatch />} />
+          </Routes>
+        </Box>
       </Router>
     </div>
   );
