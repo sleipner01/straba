@@ -1,8 +1,7 @@
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import { BrowserRouter as Router, Navigate } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
@@ -26,16 +25,17 @@ function App() {
 
   return (
     <div className='mainContainer'>
-      <Topbar auth={user} />
-      {user && <Sidebar />}
       <Router>
+        <Topbar auth={user} />
+        {user && <Sidebar />}
         <Routes>
           <Route element={<Authenticated auth={user} />}>
-            <Route path='/' element={<Home />} exact />
-            <Route path='/workouts' element={<WorkoutOverview />} />
+            <Route exact path='/' element={<Home />} />
+            <Route exact path='/workouts' element={<WorkoutOverview />} />
           </Route>
-          <Route path='/login' element={user ? <Navigate to='/' /> : <Login />} />
-          <Route path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
+          <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
+          <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
+          <Route path='*' element={<div>404</div>} />
         </Routes>
       </Router>
     </div>
