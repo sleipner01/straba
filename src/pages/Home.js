@@ -1,5 +1,5 @@
 import { useEffect, Fragment, useRef } from 'react';
-import { signOut } from 'firebase/auth';
+import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -7,11 +7,14 @@ import { Box } from '@mui/material';
 
 const Home = () => {
   const userDisplayName = useRef();
-  const user = auth.currentUser;
 
   useEffect(() => {
-    userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
-  }, [user.displayName]);
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
+      }
+    });
+  }, []);
 
   const navigate = useNavigate();
 
