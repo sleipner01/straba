@@ -1,5 +1,5 @@
-import React, { useEffect, Fragment, useRef } from 'react';
-import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { useEffect, Fragment, useRef } from 'react';
+import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
 
@@ -7,26 +7,11 @@ import { Box } from '@mui/material';
 
 const Home = () => {
   const userDisplayName = useRef();
+  const user = auth.currentUser;
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
-        const uid = user.uid;
-        // ...
-        console.log('uid', uid);
-        console.log('displayname', user.displayName);
-        console.log('email', user.email);
-
-        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
-      } else {
-        // User is signed out
-        // ...
-        console.log('user is logged out');
-      }
-    });
-  }, []);
+    userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
+  }, [user.displayName]);
 
   const navigate = useNavigate();
 
