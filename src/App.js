@@ -7,8 +7,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import Authenticated from './utils/Authenticated';
 import { auth } from './firebase';
-import Loading from './components/loading/Loading';
-import Error from './components/error/Error';
+import { Error, Loading, NoMatch } from './components/misc/usefulComponents';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 
@@ -35,7 +34,7 @@ function App() {
           </Route>
           <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
           <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
-          <Route path='*' element={<div>404</div>} />
+          <Route path='*' element={<NoMatch />} />
         </Routes>
       </Router>
     </div>
