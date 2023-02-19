@@ -1,9 +1,6 @@
-import { useEffect, Fragment, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-
-import { Box } from '@mui/material';
-
 const Home = () => {
   const userDisplayName = useRef();
 
@@ -16,13 +13,9 @@ const Home = () => {
   }, []);
 
   return (
-    <Fragment>
-      <Box className='content'>
-        <h1>
-          Welcome <span ref={userDisplayName}></span>
-        </h1>
-      </Box>
-    </Fragment>
+    <h1>
+      Welcome <span ref={userDisplayName}></span>
+    </h1>
   );
 };
 
