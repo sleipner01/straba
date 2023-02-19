@@ -1,11 +1,14 @@
 import './topbar.scss';
 import SearchIcon from '@mui/icons-material/Search';
+import { NavLink } from 'react-router-dom';
 
 export default function Topbar({ auth }) {
   return (
     <div className='topbarContainer'>
       <div className='topbarLeft'>
-        <span className='logo'>Straβa</span>
+        <NavLink to='/'>
+          <span className='logo'>Straβa</span>
+        </NavLink>
       </div>
       <div className='topbarCenter'>
         {auth && (
