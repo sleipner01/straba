@@ -28,24 +28,26 @@ const ExpandMore = styled((props) => {
 export default function NewActivity() {
   const regex = /^(\s*|\d+)$/;
 
-  // handle reps state and illegal inputs
-  const [reps, setReps] = React.useState(0);
-  const [errorReps, setErrorReps] = React.useState(false);
+  // handle field1 state and illegal inputs
+  const [field1Value, setField1Value] = React.useState();
+  const [field1Type, setField1Type] = React.useState('reps');
+  const [errorField1, setErrorField1] = React.useState(false);
 
-  const handleSetReps = (e) => {
+  const handleSetField1 = (e) => {
     // don't allow negative values or special characters
-    setErrorReps(e.target.value < 0 || !regex.test(e.target.value));
-    setReps(e.target.value);
+    setErrorField1(e.target.value < 0 || !regex.test(e.target.value));
+    setField1Value(e.target.value);
   };
 
-  // handle sets state
-  const [sets, setSets] = React.useState(0);
-  const [errorSets, setErrorSets] = React.useState(false);
+  // handle field2 state
+  const [field2Value, setField2Value] = React.useState();
+  const [field2Type, setField2Type] = React.useState('sets');
+  const [errorField2, setErrorField2] = React.useState(false);
 
-  const handleSetSets = (e) => {
+  const handleSetField2 = (e) => {
     // don't allow negative values or special characters
-    setErrorSets(e.target.value < 0 || !regex.test(e.target.value));
-    setSets(e.target.value);
+    setErrorField2(e.target.value < 0 || !regex.test(e.target.value));
+    setField2Value(e.target.value);
   };
 
   // handle set activityInfo at top of card
@@ -54,28 +56,29 @@ export default function NewActivity() {
     // yes i know ugly asf if else but they don't look at the code and it was the easiest at the time
     // don't hang me just for some ugly ifs pls
     let activityInfo = '';
-    console.log(reps, sets);
-    if (reps > 0 && !errorReps) {
-      activityInfo = activityInfo.concat(`${reps} reps`);
-      console.log(activityInfo);
+    if (field1Value > 0 && !errorField1) {
+      activityInfo = activityInfo.concat(`${field1Value} ${field1Type}`);
     }
-    if (reps > 0 && !errorReps && sets > 0 && !errorSets) {
+    if (field1Value > 0 && !errorField1 && field2Value > 0 && !errorField2) {
       activityInfo = activityInfo.concat(' x ');
     }
-    if (sets > 0 && !errorSets) {
-      activityInfo = activityInfo.concat(`${sets} sets`);
+    if (field2Value > 0 && !errorField2) {
+      activityInfo = activityInfo.concat(`${field2Value} ${field2Type}`);
     }
     updateActivityInfo(activityInfo);
   };
-  // setup useEffect so activity info updates onchange to reps and sets
+  // setup useEffect so activity info updates onchange to field1 and field2
   React.useEffect(() => {
     handleUpdateActivityInfo();
-  }, [reps, sets]);
+  }, [field1Value, field2Value, field1Type, field2Type]);
+
+  // handle saving description
+  const [description, updateDescription] = React.useState('');
 
   // handle expanding card
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = (e) => {
-    if (e.target.id !== 'programName') {
+    if (e.target.id !== 'activityName') {
       setExpanded(!expanded);
     }
   };
@@ -83,14 +86,14 @@ export default function NewActivity() {
   return (
     <Card sx={{ maxWidth: 700, backgroundColor: '#FCE181' }}>
       <CardActionArea
-        className='activityName'
-        sx={{ padding: '10px' }}
+        className='activityHeader'
+        sx={{ padding: '10px', paddingLeft: '20px' }}
         onClick={(e) => {
           handleExpandClick(e);
         }}
       >
         <TextField
-          id='programName'
+          id='activityName'
           inputProps={{
             sx: {
               padding: '1px 3px',
@@ -99,7 +102,7 @@ export default function NewActivity() {
           }}
           label='Activity name'
           variant='standard'
-          focused
+          required
         />
         <ExpandMore
           className='expandIcon'
@@ -117,30 +120,79 @@ export default function NewActivity() {
       <Collapse in={expanded} timeout='auto' unmountOnExit>
         <CardContent className='expandedContent' sx={{ backgroundColor: '#FEF9C7' }}>
           <div className='field'>
-            <span>Reps:</span>
+            <span>Tutorial her som forklarer noe?</span>
+            <FormControl sx={{ m: 1, width: '200px' }} variant='standard'>
+              <NativeSelect
+                id='setField'
+                defaultValue={field1Type}
+                onChange={(e) => {
+                  setField1Type(e.target.value);
+                }}
+              >
+                <option value={'reps'}>Reps</option>
+                <option value={'sets'}>Sets</option>
+                <option value={'sec'}>Sec</option>
+                <option value={'min'}>Min</option>
+                <option value={'kgs'}>Kgs</option>
+                <option value={'lbs'}>Lbs</option>
+              </NativeSelect>
+            </FormControl>
+
             <TextField
               className='numberTextField'
               inputProps={{ maxLength: 5 }}
-              onChange={(e) => handleSetReps(e)}
+              onChange={(e) => handleSetField1(e)}
               hiddenLabel
-              error={errorReps}
-              value={reps}
-              defaultValue={reps}
-              helperText={errorReps ? 'Non-numeric characters or negative values not allowed.' : ''}
+              error={errorField1}
+              value={field1Value}
+              defaultValue={field1Value}
+              helperText={errorField1 ? 'Non-numeric characters or negative values not allowed.' : ''}
               size='small'
             />
           </div>
           <div className='field'>
-            <span>Sets:</span>
+            <FormControl sx={{ m: 1, width: '200px' }} variant='standard'>
+              <NativeSelect
+                id='setField'
+                defaultValue={field2Type}
+                onChange={(e) => {
+                  setField2Type(e.target.value);
+                }}
+              >
+                <option value={'reps'}>Reps</option>
+                <option value={'sets'}>Sets</option>
+                <option value={'sec'}>Sec</option>
+                <option value={'min'}>Min</option>
+                <option value={'kgs'}>Kgs</option>
+                <option value={'lbs'}>Lbs</option>
+              </NativeSelect>
+            </FormControl>
             <TextField
               className='numberTextField'
               inputProps={{ maxLength: 5 }}
-              onChange={(e) => handleSetSets(e)}
+              onChange={(e) => handleSetField2(e)}
               hiddenLabel
-              error={errorSets}
-              defaultValue={sets}
-              helperText={errorSets ? 'Non-numeric characters or negative values not allowed.' : ''}
+              error={errorField2}
+              defaultValue={field2Value}
+              helperText={errorField2 ? 'Non-numeric characters or negative values not allowed.' : ''}
               size='small'
+            />
+          </div>
+          <div className='field'>
+            <span>Description</span>
+            <TextField
+              value={description}
+              inputProps={{
+                sx: {
+                  fontSize: '15px',
+                  padding: '1px 3px',
+                  marginTop: '15px',
+                },
+              }}
+              variant='standard'
+              multiline
+              maxRows={5}
+              onChange={(e) => updateDescription(e.target.value)}
             />
           </div>
         </CardContent>
