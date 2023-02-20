@@ -19,7 +19,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewActivity() {
+export default function NewActivity(props) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -27,7 +27,7 @@ export default function NewActivity() {
   };
 
   return (
-    <Card sx={{ maxWidth: 345, backgroundColor: '#FCE181' }}>
+    <Card className={props.className} sx={{ maxWidth: 345, backgroundColor: '#FCE181' }}>
       <CardActions disableSpacing>
         <TextField label='Activity name' variant='standard' color='warning' focused />
         <ExpandMore expand={expanded} onClick={handleExpandClick} aria-expanded={expanded} aria-label='show more'>
