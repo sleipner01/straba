@@ -22,7 +22,6 @@ stages:
   - lint
   - build
   - release
-  - deploy
 
 install:
   stage: install
@@ -55,11 +54,6 @@ build:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
     - if: $CI_COMMIT_BRANCH == 'development'
-  artifacts:
-    expire_in: 1 days
-    when: on_success
-    paths:
-      - node_modules/
 
 
 release_job:
@@ -75,17 +69,3 @@ release_job:
     tag_name: 'v0.$CI_PIPELINE_IID'                # The version is incremented per pipeline.
     description: 'v0.$CI_PIPELINE_IID'
     ref: '$CI_COMMIT_SHA'                          # The tag is created from the pipeline SHA.
-
-pages:
-  stage: deploy
-  dependencies:
-    - unit-test
-  script:
-    - mkdir .public
-    - cp -r coverage/* .public
-    - mv .public public
-  artifacts:
-    paths:
-      - public
-  only:
-    - main
