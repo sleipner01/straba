@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
+
+import NewActivity from '../components/newActivity/NewActivity';
+
 const Home = () => {
   const userDisplayName = useRef();
 
@@ -13,9 +16,12 @@ const Home = () => {
   }, []);
 
   return (
-    <h1>
-      Welcome <span ref={userDisplayName}></span>
-    </h1>
+    <div>
+      <h1>
+        Welcome <span ref={userDisplayName}></span>
+      </h1>
+      <NewActivity />
+    </div>
   );
 };
 
