@@ -1,27 +1,44 @@
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
+import Authenticated from './utils/Authenticated';
 import { auth } from './firebase';
+import { Error, Loading, NoMatch } from './components/misc/usefulComponents';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import WorkoutOverview from './pages/WorkoutOverview';
+import { Box } from '@mui/material';
 
 function App() {
-  const [user] = useAuthState(auth);
+  const [user, loading, error] = useAuthState(auth);
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error />;
+  }
 
   return (
     <div className='mainContainer'>
-      <Topbar />
-      {user && <Sidebar />}
       <Router>
-        <Routes>
-          <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<Signup />} />
-        </Routes>
+        <Topbar auth={user} />
+        {user && <Sidebar />}
+        <Box className='content'>
+          <Routes>
+            <Route element={<Authenticated auth={user} />}>
+              <Route exact path='/' element={<Home />} />
+              <Route exact path='/workouts' element={<WorkoutOverview />} />
+            </Route>
+            <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
+            <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
+            <Route path='*' element={<NoMatch />} />
+          </Routes>
+        </Box>
       </Router>
     </div>
   );
