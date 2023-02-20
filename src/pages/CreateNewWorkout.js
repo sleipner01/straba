@@ -1,4 +1,4 @@
-import NewActivity from '../components/NewActivity';
+import NewActivity from '../components/newActivity/NewActivity';
 import './CreateNewWorkout.scss';
 
 function CreateNewWorkout() {
