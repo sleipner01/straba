@@ -117,7 +117,7 @@ export default function NewActivity() {
         </ExpandMore>
         <span className='activityInfoSmall'>{activityInfo}</span>
       </CardActionArea>
-      <Collapse in={expanded} timeout='auto' unmountOnExit>
+      <Collapse in={expanded} unmountOnExit>
         <CardContent className='expandedContent' sx={{ backgroundColor: '#FEF9C7' }}>
           <div className='field'>
             <span>Tutorial her som forklarer noe?</span>
