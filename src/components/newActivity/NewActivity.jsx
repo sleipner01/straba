@@ -26,20 +26,16 @@ const ExpandMore = styled((props) => {
 }));
 
 export default function NewActivity() {
+  const regex = /^(\s*|\d+)$/;
+
   // handle reps state and illegal inputs
   const [reps, setReps] = React.useState(0);
   const [errorReps, setErrorReps] = React.useState(false);
 
   const handleSetReps = (e) => {
     // don't allow negative values or special characters
-    const regex = /[\+\-eE]*/;
-    if (e.target.value < 0 || regex.test(e.target.value)) {
-      setErrorReps(true);
-      console.log('Error reps' + errorReps);
-    } else {
-      setErrorReps(false);
-      setReps(e.target.value);
-    }
+    setErrorReps(e.target.value < 0 || !regex.test(e.target.value));
+    setReps(e.target.value);
   };
 
   // handle sets state
@@ -48,30 +44,28 @@ export default function NewActivity() {
 
   const handleSetSets = (e) => {
     // don't allow negative values or special characters
-    const regex = /^(\s*|\d+)$/;
-    if (e.target.value < 0 || !regex.test(e.target.value)) {
-      setErrorSets(true);
-      console.log('Error reps' + errorSets);
-    } else {
-      setErrorSets(false);
-      setSets(e.target.value);
-    }
+    setErrorSets(e.target.value < 0 || !regex.test(e.target.value));
+    setSets(e.target.value);
   };
 
   // handle set activityInfo at top of card
   const [activityInfo, updateActivityInfo] = React.useState('');
   const handleUpdateActivityInfo = () => {
     // yes i know ugly asf if else but they don't look at the code and it was the easiest at the time
-    // don't hang me just for an ugly if else
-    if (reps == 0 && sets == 0) {
-      updateActivityInfo('');
-    } else if (reps == 0) {
-      updateActivityInfo(sets + ' sets');
-    } else if (sets == 0) {
-      updateActivityInfo(reps + ' reps');
-    } else {
-      updateActivityInfo(reps + ' reps x ' + sets + ' sets');
+    // don't hang me just for some ugly ifs pls
+    let activityInfo = '';
+    console.log(reps, sets);
+    if (reps > 0 && !errorReps) {
+      activityInfo = activityInfo.concat(`${reps} reps`);
+      console.log(activityInfo);
     }
+    if (reps > 0 && !errorReps && sets > 0 && !errorSets) {
+      activityInfo = activityInfo.concat(' x ');
+    }
+    if (sets > 0 && !errorSets) {
+      activityInfo = activityInfo.concat(`${sets} sets`);
+    }
+    updateActivityInfo(activityInfo);
   };
   // setup useEffect so activity info updates onchange to reps and sets
   React.useEffect(() => {
@@ -87,7 +81,7 @@ export default function NewActivity() {
   };
 
   return (
-    <Card sx={{ maxWidth: 600, backgroundColor: '#FCE181' }}>
+    <Card sx={{ maxWidth: 700, backgroundColor: '#FCE181' }}>
       <CardActionArea
         className='activityName'
         sx={{ padding: '10px' }}
@@ -126,13 +120,13 @@ export default function NewActivity() {
             <span>Reps:</span>
             <TextField
               className='numberTextField'
-              type='number'
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 0 }}
+              inputProps={{ maxLength: 5 }}
               onChange={(e) => handleSetReps(e)}
               hiddenLabel
               error={errorReps}
+              value={reps}
               defaultValue={reps}
-              helperText={errorReps ? 'Negative values or special character not allowed.' : ''}
+              helperText={errorReps ? 'Non-numeric characters or negative values not allowed.' : ''}
               size='small'
             />
           </div>
@@ -140,13 +134,12 @@ export default function NewActivity() {
             <span>Sets:</span>
             <TextField
               className='numberTextField'
-              type='number'
-              inputProps={{ inputMode: 'numeric', pattern: '[0-9]*', min: 0 }}
+              inputProps={{ maxLength: 5 }}
               onChange={(e) => handleSetSets(e)}
               hiddenLabel
               error={errorSets}
               defaultValue={sets}
-              helperText={errorSets ? 'Negative values or special character not allowed.' : ''}
+              helperText={errorSets ? 'Non-numeric characters or negative values not allowed.' : ''}
               size='small'
             />
           </div>
