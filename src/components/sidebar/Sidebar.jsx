@@ -37,23 +37,15 @@ export default function Sidebar() {
             <FitnessCenter className='sidebarIcon' />
             <span className='sidebarListItemText'>New program</span>
           </li>
-          {/* <li className='sidebarListItem'>
-            <FitnessCenter className='sidebarIcon' />
-            <span className='sidebarListItemText'>Groups</span>
-          </li>
           <li className='sidebarListItem'>
-            <FitnessCenter className='sidebarIcon' />
-            <span className='sidebarListItemText'>Friends</span>
-          </li> */}
-          <li>
-            <NavLink to='/workouts'>
+            <NavLink to='/workouts' className='navLink'>
               <FitnessCenterIcon className='sidebarIcon' />
               <span className='sidebarListItemText'>Workouts</span>
             </NavLink>
           </li>
           <hr className='sidebarLine' />
           <li className='sidebarListItem'>
-            <NavLink onClick={handleLogout}>
+            <NavLink onClick={handleLogout} className='navLink'>
               <LogoutIcon className='sidebarIcon' />
               <span className='sidebarListItemText'>Logout</span>
             </NavLink>
