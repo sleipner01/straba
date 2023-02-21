@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 
@@ -34,12 +34,25 @@ const SignupForm = () => {
         const user = userCredential.user;
         console.log(user);
         createUser(user);
+        updateAuthName();
         navigate('/');
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
+      });
+  };
+
+  const updateAuthName = async () => {
+    updateProfile(auth.currentUser, {
+      displayName: name,
+    })
+      .then(() => {
+        console.log('Updated auth name');
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 
