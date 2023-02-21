@@ -5,8 +5,7 @@ export default function Topbar() {
   return (
     <div className='topbarContainer'>
       <div className='topbarLeft'>
-        <img src='/favicon.png' alt='test' className='topbarImg' />
-        <span className='logo'>Straβa</span>
+        <img src='/logo.png' alt='test' className='topbarImg' />
       </div>
       <div className='topbarCenter'>
         <div className='searchbar'>
