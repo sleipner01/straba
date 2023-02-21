@@ -6,24 +6,24 @@ import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 const GoogleLogin = () => {
   const navigate = useNavigate();
 
-  const createUserAsGooglePopup = async (user) => {
-    try {
-      await setDoc(
-        // If the user already exists, merge the new data with the existing data
-        doc(db, 'users', user.uid),
-        {
-          name: user.displayName,
-          email: user.email,
-          lastLogin: serverTimestamp(),
-        },
-        { merge: true },
-      );
+  // const createUserAsGooglePopup = async (user) => {
+  //   try {
+  //     await setDoc(
+  //       // If the user already exists, merge the new data with the existing data
+  //       doc(db, 'users', user.uid),
+  //       {
+  //         name: user.displayName,
+  //         email: user.email,
+  //         lastLogin: serverTimestamp(),
+  //       },
+  //       { merge: true },
+  //     );
 
-      console.log('Document written/updated in firestore');
-    } catch (e) {
-      console.error('Error adding document: ', e);
-    }
-  };
+  //     console.log('Document written/updated in firestore');
+  //   } catch (e) {
+  //     console.error('Error adding document: ', e);
+  //   }
+  // };
 
   const onSignInWithGoogle = async (e) => {
     e.preventDefault();
@@ -39,7 +39,7 @@ const GoogleLogin = () => {
         const user = userCredential.user;
         console.log(user);
 
-        createUserAsGooglePopup(user);
+        // createUserAsGooglePopup(user);
 
         navigate('/');
       })

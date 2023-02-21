@@ -13,11 +13,15 @@ const SignupForm = () => {
 
   const createUser = async (user) => {
     try {
-      await setDoc(doc(db, 'users', user.uid), {
-        name: name,
-        email: email,
-        lastLogin: serverTimestamp(),
-      });
+      await setDoc(
+        doc(db, 'users', user.uid),
+        {
+          name: name,
+          // email: email,
+          // lastLogin: serverTimestamp(),
+        },
+        { merge: true },
+      );
 
       console.log('Document written in firestore');
     } catch (e) {
