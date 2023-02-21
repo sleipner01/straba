@@ -1,4 +1,7 @@
 import './sidebar.scss';
+import { useEffect, useRef } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { FitnessCenter, Person } from '@mui/icons-material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { auth } from '../../firebase';
@@ -20,18 +23,41 @@ export default function Sidebar() {
       });
   };
 
+  const userDisplayName = useRef();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
+      }
+    });
+  }, []);
+
   return (
     <div className='sidebar'>
       <div className='sidebarWrapper'>
         <ul className='sidebarList'>
           <li className='sidebarListItem'>
-            <NavLink to='/workouts'>
+            <Person className='personIcon' />
+            <span className='sidebarListPersonText' ref={userDisplayName}></span>
+          </li>
+          <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>View programs</span>
+          </li>
+          <li className='sidebarListItem'>
+            <FitnessCenter className='sidebarIcon' />
+            <span className='sidebarListItemText'>New program</span>
+          </li>
+          <li className='sidebarListItem'>
+            <NavLink to='/workouts' className='navLink'>
               <FitnessCenterIcon className='sidebarIcon' />
               <span className='sidebarListItemText'>Workouts</span>
             </NavLink>
           </li>
+          <hr className='sidebarLine' />
           <li className='sidebarListItem'>
-            <NavLink onClick={handleLogout}>
+            <NavLink onClick={handleLogout} className='navLink'>
               <LogoutIcon className='sidebarIcon' />
               <span className='sidebarListItemText'>Logout</span>
             </NavLink>
