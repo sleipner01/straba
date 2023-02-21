@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
 
-import NewActivity from '../components/newActivity/NewActivity';
+import NewWorkout from '../components/newWorkout/NewWorkout';
 
 const Home = () => {
   const userDisplayName = useRef();
@@ -20,7 +20,7 @@ const Home = () => {
       <h1>
         Welcome <span ref={userDisplayName}></span>
       </h1>
-      <NewActivity />
+      <NewWorkout />
     </div>
   );
 };

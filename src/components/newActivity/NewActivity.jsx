@@ -120,7 +120,6 @@ export default function NewActivity() {
       <Collapse in={expanded} unmountOnExit>
         <CardContent className='expandedContent' sx={{ backgroundColor: '#FEF9C7' }}>
           <div className='field'>
-            <span>Tutorial her som forklarer noe?</span>
             <FormControl sx={{ m: 1, width: '200px' }} variant='standard'>
               <NativeSelect
                 id='setField'
