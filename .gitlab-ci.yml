@@ -14,6 +14,7 @@ cache:
   paths:
     - node_modules/
     - .yarn
+    - coverage/
 
 stages:
   - install
@@ -39,6 +40,7 @@ unit-test:
     reports:
       junit:
         - junit.xml
+      # cobertura: coverage/cobertura-coverage.xml
 
 lint:
   stage: lint
@@ -49,6 +51,10 @@ build:
   stage: build
   script:
     - yarn run build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == 'development'
+
 
 release_job:
   stage: release
