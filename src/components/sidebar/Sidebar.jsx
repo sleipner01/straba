@@ -1,4 +1,6 @@
 import './sidebar.scss';
+import { useEffect, useRef } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
 import { FitnessCenter, Person } from '@mui/icons-material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -21,13 +23,23 @@ export default function Sidebar() {
       });
   };
 
+  const userDisplayName = useRef();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
+      }
+    });
+  }, []);
+
   return (
     <div className='sidebar'>
       <div className='sidebarWrapper'>
         <ul className='sidebarList'>
           <li className='sidebarListItem'>
             <Person className='personIcon' />
-            <span className='sidebarListPersonText'>Name</span>
+            <span className='sidebarListPersonText' ref={userDisplayName}></span>
           </li>
           <li className='sidebarListItem'>
             <FitnessCenter className='sidebarIcon' />
