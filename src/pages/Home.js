@@ -1,7 +1,7 @@
-import LoadingDots from '../utils/LoadingDots';
+import { LoadingDots } from '../components/misc/usefulComponents';
 
 const Home = () => {
-  return <LoadingDots className='' />;
+  return <LoadingDots />;
 };
 
 export default Home;
