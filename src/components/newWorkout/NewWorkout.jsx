@@ -15,44 +15,69 @@ import NativeSelect from '@mui/material/NativeSelect';
 
 // test data
 const userObject = {
-  elihaugu: {
-    programs: ['program1', 'program2'],
-    email: 'elihaugu@stud.ntnu.no',
-    name: 'Elin Haugum',
-  },
+  username: 'elihaugu',
+  programs: ['program1', 'program2'],
+  email: 'elihaugu@stud.ntnu.no',
+  fullname: 'Elin Haugum',
 };
 
 const program1 = {
-  workout1: {
-    activity1: {
-      field1type: 'Reps',
-      field1value: 12,
-      field2type: 'Sets',
-      field2value: 3,
+  name: 'program1',
+  workouts: [
+    {
+      name: 'workout1',
+      activities: [
+        {
+          name: 'activity1',
+          field1type: 'Reps',
+          field1value: 12,
+          field2type: 'Sets',
+          field2value: 3,
+        },
+        {
+          name: 'activity2',
+          field1type: 'Sec',
+          field1value: 30,
+          description: 'Run for 30 secs',
+        },
+      ],
     },
-    activity2: {
-      field1type: 'Sec',
-      field1value: 30,
-      description: 'Run for 30 secs',
+    {
+      name: 'workout2',
+      activities: [
+        {
+          name: 'activity1',
+          field1type: 'Secs',
+          field1value: 60,
+        },
+      ],
     },
-  },
+  ],
 };
 
 const program2 = {
-  workout1: {
-    activity1: {
-      field1type: 'Secs',
-      field1value: 30,
-      field2type: 'Sets',
-      field2value: 3,
-      description: 'Do the exercise 3 times.',
+  name: 'program2',
+  workouts: [
+    {
+      name: 'workout1',
+      activities: [
+        {
+          name: 'activity1',
+          field1type: 'Secs',
+          field1value: 30,
+          field2type: 'Sets',
+          field2value: 3,
+          description: 'Do the exercise 3 times.',
+        },
+        {
+          name: 'activity2',
+          field2type: 'Sec',
+          field2value: 30,
+          description: 'Run for 30 secs',
+        },
+      ],
     },
-    activity2: {
-      field2type: 'Sec',
-      field2value: 30,
-      description: 'Run for 30 secs',
-    },
-  },
+  ],
 };
 
 const programs = [program1, program2];
@@ -162,17 +187,20 @@ export default function NewWorkout() {
           <ExpandMoreIcon />
         </ExpandMore>
         <EditPage>
-          <EditIcon className='editIcon' onClick={(e) => {}}></EditIcon>
+          <EditIcon className='editIcon'></EditIcon>
         </EditPage>
       </CardActionArea>
       <Collapse in={expanded} unmountOnExit>
         <CardContent className='expandedContent' sx={{ backgroundColor: '#FEF9C7' }}>
           {programs.map((program) => {
-            {
-              {
-                program.map((workout) => <div>{workout}</div>);
-              }
-            }
+            return (
+              <div>
+                <p>{program.name}</p>
+                {program.workouts.map((workout) => {
+                  return <p>{workout.name}</p>;
+                })}
+              </div>
+            );
           })}
         </CardContent>
       </Collapse>
