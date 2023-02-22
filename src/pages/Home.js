@@ -1,5 +1,7 @@
+import LoadingDots from '../utils/LoadingDots';
+
 const Home = () => {
-  return <h1>Home</h1>;
+  return <LoadingDots className='' />;
 };
 
 export default Home;
