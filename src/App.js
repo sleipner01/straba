@@ -11,9 +11,11 @@ import { Error, Loading, NoMatch } from './components/misc/usefulComponents';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 import { Box } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 function App() {
   const [user, loading, error] = useAuthState(auth);
+  const theme = useTheme();
 
   if (loading) {
     return <Loading />;
@@ -25,6 +27,7 @@ function App() {
 
   return (
     <div className='mainContainer'>
+      <span>{`Color ${theme.palette.primary.main}`}</span>;
       <Router>
         <Topbar auth={user} />
         {user && <Sidebar />}
