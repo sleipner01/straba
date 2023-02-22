@@ -2,7 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
-import './Login.scss';
+import './LoginSignup.scss';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -50,10 +50,10 @@ const Login = () => {
   };
 
   return (
-    <Fragment className='fragment'>
+    <Fragment>
       <section className='login'>
         <div className='background'>
-          <button className='google' onClick={onSignInWithGoogle}>
+          <button className='googleButton' onClick={onSignInWithGoogle}>
             Sign in with Google
           </button>
           <form>
@@ -90,7 +90,7 @@ const Login = () => {
             </div>
 
             <div>
-              <button className='loginButton' onClick={onLogin}>
+              <button className='logSignInButton' onClick={onLogin}>
                 Login
               </button>
             </div>
@@ -98,7 +98,7 @@ const Login = () => {
 
           <p className='text-sm text-white text-center'>
             No account yet?{' '}
-            <NavLink className={'signup'} to='/signup'>
+            <NavLink className={'signUpIn'} to='/signup'>
               Sign up
             </NavLink>
           </p>

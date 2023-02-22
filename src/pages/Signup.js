@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
+import './LoginSignup.scss';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -53,42 +54,55 @@ const Signup = () => {
 
   return (
     <Fragment>
-      <section>
-        <div>
+      <section className='login'>
+        <div className='background'>
           <div>
-            <button onClick={onSignInWithGoogle}>Sign in with Google</button>
+            <button className='googleButton' onClick={onSignInWithGoogle}>
+              Sign in with Google
+            </button>
             <form>
               <div>
-                <label htmlFor='email-address'>Email address</label>
+                <label className='label' htmlFor='email-address'>
+                  Email address:
+                </label>
+                <br></br>
                 <input
+                  className='input'
                   type='email'
                   label='Email address'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder='Email address'
+                  // placeholder='Email address'
                 />
               </div>
 
               <div>
-                <label htmlFor='password'>Password</label>
+                <label className='label' htmlFor='password'>
+                  Password:
+                </label>
+                <br></br>
                 <input
+                  className='input'
                   type='password'
                   label='Create password'
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  placeholder='Password'
+                  // placeholder='Password'
                 />
               </div>
 
-              <button type='submit' onClick={onSubmit}>
+              <button className='logSignInButton' type='submit' onClick={onSubmit}>
                 Sign up
               </button>
             </form>
 
             <p>
-              Already have an account? <NavLink to='/login'>Sign in</NavLink>
+              Already have an account?{' '}
+              <NavLink className={'signUpIn'} to='/login'>
+                Sign in
+              </NavLink>
             </p>
           </div>
         </div>
