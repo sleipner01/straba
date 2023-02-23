@@ -6,13 +6,13 @@ function CreateNewWorkout() {
   const [numActivities, setNumActivities] = useState(1);
 
   const addNewActivity = () => {
-    setNumActivities(prevNumActivities => prevNumActivities + 1);
+    setNumActivities((prevNumActivities) => prevNumActivities + 1);
   };
 
   const activities = [];
   for (let i = 0; i < numActivities; i++) {
-    activities.push(<NewActivity key={i}/>);
-    activities.push(<br></br>)
+    activities.push(<NewActivity key={i} />);
+    activities.push(<br></br>);
   }
 
   return (
