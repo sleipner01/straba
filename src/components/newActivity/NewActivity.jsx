@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -11,7 +11,7 @@ import './NewActivity.scss';
 
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-import { fontSize } from '@mui/system';
+import { activityContext } from '../../pages/CreateNewWorkout';
 
 // handle style for expansion of card, gives cool tapping effect
 const ExpandMore = styled((props) => {
@@ -25,13 +25,21 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewActivity() {
+export default function NewActivity({ index }) {
+  const { data, setData } = useContext(activityContext);
+
   const regex = /^(\s*|\d+)$/;
 
+  // handle saving description
+  const [description, updateDescription] = useState('');
+
+  // handle activity name state
+  const [activityName, setActivityName] = useState('');
+
   // handle field1 state and illegal inputs
-  const [field1Value, setField1Value] = React.useState();
-  const [field1Type, setField1Type] = React.useState('reps');
-  const [errorField1, setErrorField1] = React.useState(false);
+  const [field1Value, setField1Value] = useState(0);
+  const [field1Type, setField1Type] = useState('reps');
+  const [errorField1, setErrorField1] = useState(false);
 
   const handleSetField1 = (e) => {
     // don't allow negative values or special characters
@@ -40,9 +48,9 @@ export default function NewActivity() {
   };
 
   // handle field2 state
-  const [field2Value, setField2Value] = React.useState();
-  const [field2Type, setField2Type] = React.useState('sets');
-  const [errorField2, setErrorField2] = React.useState(false);
+  const [field2Value, setField2Value] = useState(0);
+  const [field2Type, setField2Type] = useState('sets');
+  const [errorField2, setErrorField2] = useState(false);
 
   const handleSetField2 = (e) => {
     // don't allow negative values or special characters
@@ -51,7 +59,7 @@ export default function NewActivity() {
   };
 
   // handle set activityInfo at top of card
-  const [activityInfo, updateActivityInfo] = React.useState('');
+  const [activityInfo, updateActivityInfo] = useState('');
   const handleUpdateActivityInfo = () => {
     // yes i know ugly asf if else but they don't look at the code and it was the easiest at the time
     // don't hang me just for some ugly ifs pls
@@ -66,17 +74,23 @@ export default function NewActivity() {
       activityInfo = activityInfo.concat(`${field2Value} ${field2Type}`);
     }
     updateActivityInfo(activityInfo);
+    setData({
+      index: index,
+      activityName: activityName,
+      field1Type: field1Type,
+      field1Value: field1Value,
+      field2Type: field2Type,
+      field2Value: field2Value,
+      description: description,
+    });
   };
   // setup useEffect so activity info updates onchange to field1 and field2
-  React.useEffect(() => {
+  useEffect(() => {
     handleUpdateActivityInfo();
-  }, [field1Value, field2Value, field1Type, field2Type]);
-
-  // handle saving description
-  const [description, updateDescription] = React.useState('');
+  }, [field1Value, field2Value, field1Type, field2Type, activityName, description]);
 
   // handle expanding card
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = useState(false);
   const handleExpandClick = (e) => {
     if (e.target.id !== 'activityName') {
       setExpanded(!expanded);
@@ -103,6 +117,7 @@ export default function NewActivity() {
           label='Activity name'
           variant='standard'
           required
+          onChange={(e) => setActivityName(e.target.value)}
         />
         <ExpandMore
           className='expandIcon'

@@ -48,7 +48,7 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li className='sidebarListItem'>
-            <NavLink to='/createnewprogram' className='navLink'>
+            <NavLink to='/createnewworkout' className='navLink'>
               <FitnessCenterIcon className='sidebarIcon' />
               <span className='sidebarListItemText'>Create program</span>
             </NavLink>

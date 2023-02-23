@@ -4,6 +4,10 @@
   background-image: url('../../public/BrownMountains.jpg');
 }
 
+.activity {
+  padding-bottom: 30px;
+}
+
 .backgroundImage {
   width: 10%;
   height: 10%;
@@ -42,4 +46,11 @@
 
 .add:hover {
   transform: scale(1.05);
+}
+
+.activityWrapper {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
