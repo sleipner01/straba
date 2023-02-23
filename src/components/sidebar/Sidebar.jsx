@@ -28,7 +28,7 @@ export default function Sidebar() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        userDisplayName.current.innerHTML = user.displayName ? user.displayName : 'Chief';
+        userDisplayName.current.innerHTML = user.displayName != null ? user.displayName : 'Chief';
       }
     });
   }, []);
