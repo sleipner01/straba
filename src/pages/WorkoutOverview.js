@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,8 +6,9 @@ import Typography from '@mui/material/Typography';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-import { auth, db } from '../firebase';
-import { doc, getDocs, collection, query, where } from 'firebase/firestore';
+import { db } from '../firebase';
+import { getDocs, collection, query, where } from 'firebase/firestore';
+import { LoadingDots } from '../components/misc/usefulComponents';
 
 const programsJson = `{
   "programs": [
@@ -34,23 +35,27 @@ const programsJson = `{
 
 function WorkoutOverview() {
   const programs = JSON.parse(programsJson).programs;
+  const [firebaseData, setFirebaseData] = useState();
 
   const loadProgramsFromFirestore = async () => {
     try {
       const q = query(collection(db, 'programs'), where('private', '==', false));
 
-      const querySnapshot = await getDocs(q);
-      console.log(querySnapshot);
-      querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, ' => ', doc.data());
+      await getDocs(q).then((querySnapshot) => {
+        console.log(querySnapshot);
+        querySnapshot.docs.map((doc) => {
+          const data = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+          setFirebaseData(data);
+        });
       });
     } catch (error) {
       console.error('Retrieving documents failed" ' + error);
     }
   };
 
-  loadProgramsFromFirestore();
+  useEffect(() => {
+    loadProgramsFromFirestore();
+  }, []);
 
   const getIconForWorkoutType = (workoutType) => {
     switch (workoutType.toLowerCase()) {
@@ -67,7 +72,41 @@ function WorkoutOverview() {
 
   return (
     <div style={{ marginTop: '40px', marginLeft: '10px', position: 'absolute' }}>
-      {programs.map((program, index) => (
+      {!firebaseData ? (
+        <LoadingDots />
+      ) : (
+        firebaseData.map((data, index) => (
+          <Link to={data.link} key={index} style={{ textDecoration: 'none' }}>
+            <Card
+              sx={{
+                backgroundColor: '#f5f5f5',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                padding: '20px',
+                marginBottom: '20px',
+                transition: 'transform 0.2s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.02)',
+                },
+              }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <CardContent>
+                  <Typography variant='h5' component='h2'>
+                    {data.name}
+                  </Typography>
+                  <Typography color='textSecondary'>{data.description}</Typography>
+                </CardContent>
+                <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
+                  {getIconForWorkoutType(data.workoutType)}
+                </div>
+              </div>
+            </Card>
+          </Link>
+        ))
+      )}
+      ,
+      {/* {programs.map((program, index) => (
         <Link to={program.link} key={index} style={{ textDecoration: 'none' }}>
           <Card
             sx={{
@@ -95,7 +134,7 @@ function WorkoutOverview() {
             </div>
           </Card>
         </Link>
-      ))}
+      ))} */}
     </div>
   );
 }
