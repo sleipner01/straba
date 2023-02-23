@@ -102,7 +102,7 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <button disabled={submitDisabled} className='logSignInButton' onClick={onLogin}>
+        <button disabled={submitDisabled} className='logSignInButton formButton' onClick={onLogin}>
           Login
         </button>
         {errorText && <Error errorMessage={errorText} />}

@@ -75,7 +75,7 @@ const GoogleLogin = () => {
   };
 
   return (
-    <button className='googleButton' onClick={onSignInWithGoogle}>
+    <button className='googleButton formButton' onClick={onSignInWithGoogle}>
       Sign in with Google
     </button>
   );

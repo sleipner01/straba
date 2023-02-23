@@ -20,7 +20,7 @@ function CreateNewWorkout() {
       <h3 className='titleText'>Workout name:</h3>
       <input className='titleChoosen' placeholder='Workout name'></input>
       <div>
-        <button onClick={addNewActivity} className='add'>
+        <button onClick={addNewActivity} className='addActivity'>
           New activity +
         </button>
         <div className='activityWrapper'>{activities}</div>
