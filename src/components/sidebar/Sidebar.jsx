@@ -42,17 +42,15 @@ export default function Sidebar() {
             <span className='sidebarListPersonText' ref={userDisplayName}></span>
           </li>
           <li className='sidebarListItem'>
-            <FitnessCenter className='sidebarIcon' />
-            <span className='sidebarListItemText'>View programs</span>
-          </li>
-          <li className='sidebarListItem'>
-            <FitnessCenter className='sidebarIcon' />
-            <span className='sidebarListItemText'>New program</span>
-          </li>
-          <li className='sidebarListItem'>
             <NavLink to='/workouts' className='navLink'>
               <FitnessCenterIcon className='sidebarIcon' />
-              <span className='sidebarListItemText'>Workouts</span>
+              <span className='sidebarListItemText'>View programs</span>
+            </NavLink>
+          </li>
+          <li className='sidebarListItem'>
+            <NavLink to='/createnewprogram' className='navLink'>
+              <FitnessCenterIcon className='sidebarIcon' />
+              <span className='sidebarListItemText'>Create program</span>
             </NavLink>
           </li>
           <hr className='sidebarLine' />
