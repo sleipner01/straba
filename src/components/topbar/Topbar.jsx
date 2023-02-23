@@ -7,7 +7,7 @@ export default function Topbar({ auth }) {
     <div className='topbarContainer'>
       <div className='topbarLeft'>
         <NavLink to='/'>
-          <span className='logo'>Straβa</span>
+          <img src='/logo.png' alt='test' className='topbarImg' />
         </NavLink>
       </div>
       <div className='topbarCenter'>

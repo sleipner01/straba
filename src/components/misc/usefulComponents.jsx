@@ -1,11 +1,21 @@
 import './usefulComponents.scss';
+import './loadingDots.scss';
 
-export const Loading = () => {
-  return <div className='loadingContainer'>Loading...</div>;
+export const LoadingDots = () => {
+  return (
+    <div className='loading-dots-container'>
+      <div className={'loading-dots'}>
+        <div className='loading-dot'></div>
+        <div className='loading-dot'></div>
+        <div className='loading-dot'></div>
+        <div className='loading-dot'></div>
+      </div>
+    </div>
+  );
 };
 
-export const Error = () => {
-  return <div className='errorContainer'>Error!</div>;
+export const Error = ({ errorMessage }) => {
+  return <div className='errorContainer'>{errorMessage}</div>;
 };
 
 export const NoMatch = () => {

@@ -9,7 +9,7 @@ import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import Authenticated from './utils/Authenticated';
 import { auth } from './firebase';
-import { Error, Loading, NoMatch } from './components/misc/usefulComponents';
+import { Error, LoadingDots, NoMatch } from './components/misc/usefulComponents';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 import { Box } from '@mui/material';
@@ -18,7 +18,7 @@ function App() {
   const [user, loading, error] = useAuthState(auth);
 
   if (loading) {
-    return <Loading />;
+    return <LoadingDots />;
   }
 
   if (error) {

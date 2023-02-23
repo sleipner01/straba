@@ -1,7 +1,7 @@
 .sidebar {
   height: calc(100vh - 50px);
   /* overflow-y: scroll; */
-  background-color: beige;
+  background-color: #c3ebdd;
   position: sticky;
   top: 50px;
   flex-basis: 240px;
@@ -18,7 +18,8 @@
 } */
 
 .sidebarWrapper {
-  padding: 20px;
+  padding-top: 20px;
+  padding: 0px;
 }
 
 .sidebarList {
@@ -30,11 +31,40 @@
 .sidebarListItem {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+
+  .navLink {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+.sidebarListItem:hover {
+  background-color: #4b8f94;
+}
+
+.sidebarListItemText {
+  font-size: 20px;
+  color: #007580;
+  text-shadow: 0.5px 0.5px black;
+}
+
+.sidebarListItemtext:hover {
+  color: black;
 }
 
 .sidebarIcon {
+  margin-top: 4px;
   margin-right: 15px;
+}
+
+.sidebarLine {
+  background-color: #007580;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding: 1px;
+  border-radius: 4px;
 }
 
 .sidebarButton {
@@ -46,11 +76,27 @@
 }
 
 .sidebarHr {
-  margin: 20px 0;
+  margin: 20px;
 }
 
 .sidebarFriendList {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.personIcon {
+  padding-left: 10px;
+  padding-top: 0px;
+  font-size: 40px !important;
+  padding-bottom: 15px;
+}
+
+.sidebarListPersonText {
+  padding-left: 20px;
+  font-size: 30px;
+  color: #007580;
+  text-decoration: underline;
+  text-shadow: 0.5px 0.5px black;
+  padding-bottom: 20px;
 }
