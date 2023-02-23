@@ -27,7 +27,6 @@ const GoogleLogin = () => {
   const checkifUserExistsAndUpdateDoc = async (user) => {
     try {
       await getDoc(doc(db, 'users', user.uid)).then((doc) => {
-        console.log('Exists?:', doc.exists());
         if (doc.exists()) {
           updateLoginTime(user);
         } else {
