@@ -6,6 +6,8 @@ import Typography from '@mui/material/Typography';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { auth, db } from '../firebase';
+import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 
 const programsJson = `{
   "programs": [
@@ -32,6 +34,23 @@ const programsJson = `{
 
 function WorkoutOverview() {
   const programs = JSON.parse(programsJson).programs;
+
+  const loadProgramsFromFirestore = async () => {
+    try {
+      const q = query(collection(db, 'programs'), where('private', '==', false));
+
+      const querySnapshot = await getDocs(q);
+      console.log(querySnapshot);
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, ' => ', doc.data());
+      });
+    } catch (error) {
+      console.error('Retrieving documents failed" ' + error);
+    }
+  };
+
+  loadProgramsFromFirestore();
 
   const getIconForWorkoutType = (workoutType) => {
     switch (workoutType.toLowerCase()) {
