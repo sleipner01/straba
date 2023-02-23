@@ -2,12 +2,13 @@ import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
 import GoogleLogin from '../components/authentication/GoogleLogin';
 import SignupForm from '../components/authentication/SignupForm';
+import './LoginSignup.scss';
 
 const Signup = () => {
   return (
     <Fragment>
-      <section>
-        <div>
+      <section className='login'>
+        <div className='background'>
           <div>
             <GoogleLogin />
             <SignupForm />

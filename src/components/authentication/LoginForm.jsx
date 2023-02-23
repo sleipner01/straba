@@ -3,6 +3,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import './forms.scss';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -40,8 +41,12 @@ const LoginForm = () => {
   return (
     <form>
       <div>
-        <label htmlFor='email-address'>Email address</label>
+        <label className='label' htmlFor='email-address'>
+          Email address
+        </label>
+        <br />
         <input
+          className='input'
           id='email-address'
           name='email'
           type='email'
@@ -52,8 +57,12 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <label htmlFor='password'>Password</label>
+        <label className='label' htmlFor='password'>
+          Password
+        </label>
+        <br />
         <input
+          className='input'
           id='password'
           name='password'
           type='password'
@@ -64,7 +73,9 @@ const LoginForm = () => {
       </div>
 
       <div>
-        <button onClick={onLogin}>Login</button>
+        <button className='logSignInButton' onClick={onLogin}>
+          Login
+        </button>
       </div>
     </form>
   );

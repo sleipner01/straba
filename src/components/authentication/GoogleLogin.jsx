@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+import './forms.scss';
 
 const GoogleLogin = () => {
   const navigate = useNavigate();
@@ -74,7 +75,11 @@ const GoogleLogin = () => {
       });
   };
 
-  return <button onClick={onSignInWithGoogle}>Sign in with Google</button>;
+  return (
+    <button className='googleButton' onClick={onSignInWithGoogle}>
+      Sign in with Google
+    </button>
+  );
 };
 
 export default GoogleLogin;

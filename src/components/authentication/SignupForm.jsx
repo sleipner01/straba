@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import './forms.scss';
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -59,8 +60,12 @@ const SignupForm = () => {
   return (
     <form>
       <div>
-        <label htmlFor='Full name'>Full name</label>
+        <label className='label' htmlFor='Full name'>
+          Full name
+        </label>
+        <br />
         <input
+          className='input'
           type='text'
           label='Full name'
           value={name}
@@ -71,8 +76,12 @@ const SignupForm = () => {
       </div>
 
       <div>
-        <label htmlFor='Email address'>Email address</label>
+        <label className='label' htmlFor='Email address'>
+          Email address
+        </label>
+        <br />
         <input
+          className='input'
           type='email'
           label='Email address'
           value={email}
@@ -83,8 +92,12 @@ const SignupForm = () => {
       </div>
 
       <div>
-        <label htmlFor='password'>Password</label>
+        <label className='label' htmlFor='password'>
+          Password
+        </label>
+        <br />
         <input
+          className='input'
           type='password'
           label='Create password'
           value={password}
@@ -94,7 +107,7 @@ const SignupForm = () => {
         />
       </div>
 
-      <button type='submit' onClick={onSubmit}>
+      <button className='logSignInButton' type='submit' onClick={onSubmit}>
         Sign up
       </button>
     </form>
