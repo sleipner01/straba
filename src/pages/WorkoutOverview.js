@@ -10,31 +10,7 @@ import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
 
-const programsJson = `{
-  "programs": [
-    {
-      "name": "Beginner's Workout Program",
-      "description": "This is a beginner's workout program designed to help you get started with exercising.",
-      "workoutType": "Strength training",
-      "link": "/beginner-workout"
-    },
-    {
-      "name": "Intermediate Workout Program",
-      "description": "This is an intermediate workout program designed for those who have some experience with exercising.",
-      "workoutType": "Cardio",
-      "link": "/intermediate-workout"
-    },
-    {
-      "name": "Advanced Workout Program",
-      "description": "This is an advanced workout program designed for those who are already in good shape and want to take their fitness to the next level.",
-      "workoutType": "HIIT",
-      "link": "5percentnutrition.com/"
-    }
-  ]
-}`;
-
 function WorkoutOverview() {
-  const programs = JSON.parse(programsJson).programs;
   const [firebaseData, setFirebaseData] = useState();
 
   const loadProgramsFromFirestore = async () => {
@@ -53,10 +29,6 @@ function WorkoutOverview() {
     }
   };
 
-  useEffect(() => {
-    loadProgramsFromFirestore();
-  }, []);
-
   const getIconForWorkoutType = (workoutType) => {
     switch (workoutType.toLowerCase()) {
       case 'strength training':
@@ -69,6 +41,10 @@ function WorkoutOverview() {
         return null;
     }
   };
+
+  useEffect(() => {
+    loadProgramsFromFirestore();
+  }, []);
 
   return (
     <div style={{ marginTop: '40px', marginLeft: '10px', position: 'absolute' }}>
@@ -105,36 +81,6 @@ function WorkoutOverview() {
           </Link>
         ))
       )}
-      ,
-      {/* {programs.map((program, index) => (
-        <Link to={program.link} key={index} style={{ textDecoration: 'none' }}>
-          <Card
-            sx={{
-              backgroundColor: '#f5f5f5',
-              borderRadius: '10px',
-              boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-              padding: '20px',
-              marginBottom: '20px',
-              transition: 'transform 0.2s ease-in-out',
-              '&:hover': {
-                transform: 'scale(1.02)',
-              },
-            }}
-          >
-            <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <CardContent>
-                <Typography variant='h5' component='h2'>
-                  {program.name}
-                </Typography>
-                <Typography color='textSecondary'>{program.description}</Typography>
-              </CardContent>
-              <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
-                {getIconForWorkoutType(program.workoutType)}
-              </div>
-            </div>
-          </Card>
-        </Link>
-      ))} */}
     </div>
   );
 }
