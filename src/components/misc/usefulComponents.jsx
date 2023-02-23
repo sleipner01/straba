@@ -14,8 +14,8 @@ export const LoadingDots = () => {
   );
 };
 
-export const Error = () => {
-  return <div className='errorContainer'>Error!</div>;
+export const Error = ({ errorMessage }) => {
+  return <div className='errorContainer'>{errorMessage}</div>;
 };
 
 export const NoMatch = () => {
