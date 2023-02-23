@@ -1,14 +1,44 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { Error } from '../misc/usefulComponents';
+import errorCodeToTextConverter from '../../utils/ErrorCodeToTextConverter';
 import './forms.scss';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailValid, setEmailValidState] = useState(false);
+  const [passwordValid, setPasswordValidState] = useState(false);
+  const [submitDisabled, setSubmitDisabledState] = useState(true);
+  const [errorText, setError] = useState();
+
+  useEffect(() => {
+    checkSubmitValid();
+  }, [emailValid, passwordValid]);
+
+  function checkSubmitValid() {
+    // check if all fields are valid
+    let submitValid = emailValid && passwordValid;
+    setSubmitDisabledState(!submitValid);
+  }
+
+  function handleChangeEmail(mail) {
+    // separate handler for each field
+    let emailValid = mail ? true : false; // basic email validation
+    setEmail(mail);
+    setEmailValidState(emailValid);
+  }
+
+  function handleChangePassword(password) {
+    // separate handler for each field
+    let passwordValid = password ? true : false; // basic text validation
+    setPassword(password);
+    setPasswordValidState(passwordValid);
+  }
 
   const updateLoginTime = async (user) => {
     try {
@@ -32,9 +62,8 @@ const LoginForm = () => {
         updateLoginTime(user);
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error);
+        setError(errorCodeToTextConverter(error.code));
       });
   };
 
@@ -52,7 +81,7 @@ const LoginForm = () => {
           type='email'
           required
           placeholder='Email address'
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleChangeEmail(e.target.value)}
         />
       </div>
 
@@ -68,14 +97,15 @@ const LoginForm = () => {
           type='password'
           required
           placeholder='Password'
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => handleChangePassword(e.target.value)}
         />
       </div>
 
       <div>
-        <button className='logSignInButton' onClick={onLogin}>
+        <button disabled={submitDisabled} className='logSignInButton' onClick={onLogin}>
           Login
         </button>
+        {errorText && <Error errorMessage={errorText} />}
       </div>
     </form>
   );

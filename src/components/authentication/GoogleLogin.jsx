@@ -70,7 +70,7 @@ const GoogleLogin = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage);
-        // ..
+        alert('Error signing in with Google"', errorMessage);
       });
   };
 

@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
+import { Error } from '../misc/usefulComponents';
+import errorCodeToTextConverter from '../../utils/ErrorCodeToTextConverter';
 import './forms.scss';
 
 const SignupForm = () => {
@@ -11,6 +13,42 @@ const SignupForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameValid, setNameValidState] = useState(false);
+  const [emailValid, setEmailValidState] = useState(false);
+  const [passwordValid, setPasswordValidState] = useState(false);
+  const [submitDisabled, setSubmitDisabledState] = useState(true);
+  const [errorText, setError] = useState();
+
+  useEffect(() => {
+    checkSubmitValid();
+  }, [emailValid, nameValid, passwordValid]);
+
+  function checkSubmitValid() {
+    // check if all fields are valid
+    let submitValid = emailValid && nameValid && passwordValid;
+    setSubmitDisabledState(!submitValid);
+  }
+
+  function handleChangeEmail(mail) {
+    // separate handler for each field
+    let emailValid = mail ? true : false; // basic email validation
+    setEmail(mail);
+    setEmailValidState(emailValid);
+  }
+
+  function handleChangeName(name) {
+    // separate handler for each field
+    let nameValid = name ? true : false; // basic text validation
+    setName(name);
+    setNameValidState(nameValid);
+  }
+
+  function handleChangePassword(password) {
+    // separate handler for each field
+    let passwordValid = password ? true : false; // basic text validation
+    setPassword(password);
+    setPasswordValidState(passwordValid);
+  }
 
   const createUser = async (user) => {
     try {
@@ -40,9 +78,8 @@ const SignupForm = () => {
         navigate('/');
       })
       .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error);
+        setError(errorCodeToTextConverter(error.code));
       });
   };
 
@@ -70,7 +107,7 @@ const SignupForm = () => {
           type='text'
           label='Full name'
           value={name}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => handleChangeName(e.target.value)}
           required
           placeholder='Full name'
         />
@@ -86,7 +123,7 @@ const SignupForm = () => {
           type='email'
           label='Email address'
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => handleChangeEmail(e.target.value)}
           required
           placeholder='Email address'
         />
@@ -102,15 +139,16 @@ const SignupForm = () => {
           type='password'
           label='Create password'
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => handleChangePassword(e.target.value)}
           required
           placeholder='Password'
         />
       </div>
 
-      <button className='logSignInButton' type='submit' onClick={onSubmit}>
+      <button disabled={submitDisabled} className='logSignInButton' type='submit' onClick={onSubmit}>
         Sign up
       </button>
+      {errorText && <Error errorMessage={errorText} />}
     </form>
   );
 };
