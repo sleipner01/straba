@@ -1,94 +1,19 @@
-import React, { Fragment, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase';
+import React, { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
+import GoogleLogin from '../components/authentication/GoogleLogin';
+import SignupForm from '../components/authentication/SignupForm';
+import './LoginSignup.scss';
 
 const Signup = () => {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate('/login');
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
-
-  const onSignInWithGoogle = async (e) => {
-    e.preventDefault();
-
-    // Sign in using a popup.
-    const provider = new GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-
-    await signInWithPopup(auth, provider)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate('/');
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-      });
-  };
-
   return (
     <Fragment>
-      <section>
-        <div>
+      <section className='login'>
+        <div className='background'>
           <div>
-            <button onClick={onSignInWithGoogle}>Sign in with Google</button>
-            <form>
-              <div>
-                <label htmlFor='email-address'>Email address</label>
-                <input
-                  type='email'
-                  label='Email address'
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder='Email address'
-                />
-              </div>
-
-              <div>
-                <label htmlFor='password'>Password</label>
-                <input
-                  type='password'
-                  label='Create password'
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder='Password'
-                />
-              </div>
-
-              <button type='submit' onClick={onSubmit}>
-                Sign up
-              </button>
-            </form>
-
+            <GoogleLogin />
+            <SignupForm />
             <p>
-              Already have an account? <NavLink to='/login'>Sign in</NavLink>
+              Already have an account? <NavLink to='/login'>Log in</NavLink>
             </p>
           </div>
         </div>
