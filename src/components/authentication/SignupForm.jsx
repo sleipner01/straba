@@ -18,6 +18,7 @@ const SignupForm = () => {
         name: name,
         email: email,
         lastLogin: serverTimestamp(),
+        created: serverTimestamp(),
       });
 
       console.log('Document written in firestore');
