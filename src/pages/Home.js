@@ -1,5 +1,7 @@
+import { LoadingDots } from '../components/misc/usefulComponents';
+
 const Home = () => {
-  return <h1>Home</h1>;
+  return <LoadingDots />;
 };
 
 export default Home;
