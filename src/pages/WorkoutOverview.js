@@ -10,19 +10,19 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 const programsJson = `{
   "programs": [
     {
-      "name": "Beginner's Workout",
+      "name": "Beginner's Workout Program",
       "description": "This is a beginner's workout program designed to help you get started with exercising.",
       "workoutType": "Strength training",
       "link": "/beginner-workout"
     },
     {
-      "name": "Intermediate Workout",
+      "name": "Intermediate Workout Program",
       "description": "This is an intermediate workout program designed for those who have some experience with exercising.",
       "workoutType": "Cardio",
       "link": "/intermediate-workout"
     },
     {
-      "name": "Advanced Workout",
+      "name": "Advanced Workout Program",
       "description": "This is an advanced workout program designed for those who are already in good shape and want to take their fitness to the next level.",
       "workoutType": "HIIT",
       "link": "5percentnutrition.com/"
@@ -36,11 +36,11 @@ function WorkoutOverview() {
   const getIconForWorkoutType = (workoutType) => {
     switch (workoutType.toLowerCase()) {
       case 'strength training':
-        return <FitnessCenterIcon  fontSize='150px'/>;
+        return <FitnessCenterIcon fontSize='150px' />;
       case 'cardio':
-        return <DirectionsRunIcon  fontSize='150px'/>;
+        return <DirectionsRunIcon fontSize='150px' />;
       case 'hiit':
-        return <WhatshotIcon fontSize='150px'/>;
+        return <WhatshotIcon fontSize='150px' />;
       default:
         return null;
     }
@@ -65,14 +65,12 @@ function WorkoutOverview() {
           >
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
               <CardContent>
-                <Typography variant="h5" component="h2">
+                <Typography variant='h5' component='h2'>
                   {program.name}
-                </Typography>  
-                <Typography color="textSecondary">
-                  {program.description}
                 </Typography>
+                <Typography color='textSecondary'>{program.description}</Typography>
               </CardContent>
-              <div style={{ display: 'flex', alignItems: 'center', fontSize:'110px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
                 {getIconForWorkoutType(program.workoutType)}
               </div>
             </div>
