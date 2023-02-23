@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NavLink, useNavigate } from 'react-router-dom';
+import './LoginSignup.scss';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -50,41 +51,56 @@ const Login = () => {
 
   return (
     <Fragment>
-      <section>
-        <div>
-          <button onClick={onSignInWithGoogle}>Sign in with Google</button>
+      <section className='login'>
+        <div className='background'>
+          <button className='googleButton' onClick={onSignInWithGoogle}>
+            Sign in with Google
+          </button>
           <form>
             <div>
-              <label htmlFor='email-address'>Email address</label>
+              <label className='label' htmlFor='email-address'>
+                Email address:{' '}
+              </label>
+              <br></br>
               <input
+                className='input'
                 id='email-address'
                 name='email'
                 type='email'
                 required
-                placeholder='Email address'
+                // placeholder='Email address'
                 onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
             <div>
-              <label htmlFor='password'>Password</label>
+              <label className='label' htmlFor='password'>
+                Password:{' '}
+              </label>
+              <br></br>
               <input
+                className='input'
                 id='password'
                 name='password'
                 type='password'
                 required
-                placeholder='Password'
+                // placeholder='Password'
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <div>
-              <button onClick={onLogin}>Login</button>
+              <button className='logSignInButton' onClick={onLogin}>
+                Login
+              </button>
             </div>
           </form>
 
           <p className='text-sm text-white text-center'>
-            No account yet? <NavLink to='/signup'>Sign up</NavLink>
+            No account yet?{' '}
+            <NavLink className={'signUpIn'} to='/signup'>
+              Sign up
+            </NavLink>
           </p>
         </div>
       </section>
