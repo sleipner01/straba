@@ -145,7 +145,7 @@ const SignupForm = () => {
         />
       </div>
 
-      <button disabled={submitDisabled} className='logSignInButton' type='submit' onClick={onSubmit}>
+      <button disabled={submitDisabled} className='logSignInButton formButton' type='submit' onClick={onSubmit}>
         Sign up
       </button>
       {errorText && <Error errorMessage={errorText} />}
