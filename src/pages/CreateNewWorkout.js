@@ -1,8 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 import NewActivity from '../components/newActivity/NewActivity';
 import './CreateNewWorkout.scss';
-import { db } from '../firebase';
-import { collection, addDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 
 export const activityContext = createContext();
@@ -49,7 +49,11 @@ function CreateNewWorkout() {
     });
     try {
       await addDoc(collection(db, 'programs'), {
-        programName: programName,
+        name: programName,
+        private: false,
+        createdAt: serverTimestamp(),
+        userId: auth.currentUser.uid,
+        workoutType: 'weight training',
         activities: activityList,
       });
     } catch {

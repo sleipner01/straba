@@ -22,6 +22,7 @@ function WorkoutOverview() {
         querySnapshot.docs.map((doc) => {
           const data = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
           setFirebaseData(data);
+          console.log(data);
         });
       });
     } catch (error) {
@@ -30,6 +31,7 @@ function WorkoutOverview() {
   };
 
   const getIconForWorkoutType = (workoutType) => {
+    if (!workoutType) return null;
     switch (workoutType.toLowerCase()) {
       case 'strength training':
         return <FitnessCenterIcon fontSize='150px' />;
