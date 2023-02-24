@@ -12,7 +12,7 @@ const Signup = () => {
           <div>
             <GoogleLogin />
             <SignupForm />
-            <p>
+            <p className='text'>
               Already have an account? <NavLink to='/login'>Log in</NavLink>
             </p>
           </div>

@@ -11,7 +11,7 @@ const Login = () => {
         <div className='background'>
           <GoogleLogin />
           <LoginForm />
-          <p className='text-sm text-white text-center'>
+          <p className='text'>
             No account yet?{' '}
             <NavLink className={'signUpIn'} to='/signup'>
               Sign up
