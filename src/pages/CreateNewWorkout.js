@@ -53,8 +53,9 @@ function CreateNewWorkout() {
         private: false,
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid,
-        workoutType: 'weight training',
+        workoutType: 'strength training',
         activities: activityList,
+        link: '/' + programName,
       });
     } catch {
       console.log('Something went wrong saving workout.');
