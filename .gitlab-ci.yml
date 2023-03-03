@@ -50,6 +50,7 @@ lint:
 build:
   stage: build
   script:
+    - set CI=false
     - yarn run build
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
