@@ -46,6 +46,9 @@ lint:
   stage: lint
   script:
     - yarn lint
+  rules:
+    - if: $CI_COMMIT_BRANCH != $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH != 'development'
 
 build:
   variables:
