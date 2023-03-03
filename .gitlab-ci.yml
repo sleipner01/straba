@@ -48,6 +48,8 @@ lint:
     - yarn lint
 
 build:
+  variables:
+    CI: "false"
   stage: build
   script:
     - yarn run build
