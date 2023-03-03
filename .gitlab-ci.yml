@@ -14,6 +14,7 @@ cache:
   paths:
     - node_modules/
     - .yarn
+    - coverage/
 
 stages:
   - install
@@ -39,16 +40,26 @@ unit-test:
     reports:
       junit:
         - junit.xml
+      # cobertura: coverage/cobertura-coverage.xml
 
 lint:
   stage: lint
   script:
     - yarn lint
+  except:
+    - $CI_DEFAULT_BRANCH
+    - 'development'
 
 build:
+  variables:
+    CI: "false"
   stage: build
   script:
     - yarn run build
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+    - if: $CI_COMMIT_BRANCH == 'development'
+
 
 release_job:
   stage: release
@@ -60,6 +71,6 @@ release_job:
   script:
     - echo "running release_job for $TAG"
   release:                                         # See https://docs.gitlab.com/ee/ci/yaml/#release for available properties
-    tag_name: 'v0.$CI_PIPELINE_IID'                # The version is incremented per pipeline.
-    description: 'v0.$CI_PIPELINE_IID'
+    tag_name: 'v1.$CI_PIPELINE_IID'                # The version is incremented per pipeline.
+    description: 'v1.$CI_PIPELINE_IID'
     ref: '$CI_COMMIT_SHA'                          # The tag is created from the pipeline SHA.

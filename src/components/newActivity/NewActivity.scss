@@ -1,0 +1,33 @@
+.expandIcon {
+  float: right;
+  position: relative;
+}
+
+.activityInfoSmall {
+  float: right;
+  position: relative;
+  font-size: 20px;
+  padding-top: 15px;
+  padding-right: 10px;
+}
+
+.numberTextField {
+  float: right;
+  width: 200px;
+}
+
+.expandedContent {
+  height: 100%;
+  padding: 20px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.description {
+  margin-top: 100px;
+}

@@ -1,0 +1,11 @@
+.login {
+  height: calc(100vh - 50px);
+  background-image: url('../../public/BrownMountains.jpg');
+  background-size: cover;
+  overflow: auto;
+}
+
+.login .background {
+  height: 100%;
+  text-align: center;
+}
