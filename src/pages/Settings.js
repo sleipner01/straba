@@ -1,22 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Error } from '../components/misc/usefulComponents';
-import { auth } from '../../firebase';
+import { auth } from '../firebase';
 import { updateProfile } from 'firebase/auth';
+import { AccountCircle } from '@mui/icons-material';
 
 const Settings = () => {
   const [name, setName] = useState('');
   const [nameValid, setNameValidState] = useState(false);
-  const [submitDisabled, setSubmitDisabledState] = useState(true);
+  const [nameSubmitDisabled, setNameSubmitDisabledState] = useState(true);
   const [errorText, setError] = useState();
 
   useEffect(() => {
-    checkSubmitValid();
+    checkNameSubmitValid();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nameValid]);
 
-  function checkSubmitValid() {
+  function checkNameSubmitValid() {
     // check if all fields are valid
     let submitValid = nameValid;
-    setSubmitDisabledState(!submitValid);
+    setNameSubmitDisabledState(!submitValid);
   }
 
   function handleChangeName(name) {
@@ -26,7 +28,8 @@ const Settings = () => {
     setNameValidState(nameValid);
   }
 
-  const updateAuthName = async () => {
+  const updateAuthName = async (e) => {
+    e.preventDefault();
     updateProfile(auth.currentUser, {
       displayName: name,
     })
@@ -42,28 +45,34 @@ const Settings = () => {
   return (
     <div>
       <h1>Settings</h1>
+      <div>
+        <span>Your Name:</span>
+        <span>{auth.currentUser.displayName}</span>
+      </div>
+      <div>
+        <AccountCircle className='personIcon' />
+        <img src={auth.currentUser.photoURL} alt='Profile Picture' width='80px' height='80px' />
+      </div>
+      <h2>Update your account information</h2>
       <form>
         <label className='label' htmlFor='name'>
           Name
         </label>
+        <br />
         <input
           type='text'
           name='name'
           id='name'
-          placeholder='Name'
+          placeholder={auth.currentUser.displayName ? auth.currentUser.displayName : 'John Doe'}
           className='input'
           value={name}
           onChange={(e) => handleChangeName(e.target.value)}
         />
         <br />
-        <label className='label' htmlFor='phoneNumber'>
-          Phone Number
-        </label>
-        <input type='tel' name='phoneNumber' id='phoneNumber' placeholder='Phone Number' className='input' required />
-        <br />
-        <button disabled={submitDisabled} type='submit' onClick={updateAuthName} required>
+        <button disabled={nameSubmitDisabled} type='submit' onClick={updateAuthName}>
           Update
         </button>
+        <br />
         {errorText && <Error errorMessage={errorText} />}
       </form>
     </div>
