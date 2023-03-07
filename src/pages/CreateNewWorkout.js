@@ -11,7 +11,7 @@ const allWorkouts = {};
 function CreateNewWorkout() {
   const navigate = useNavigate();
 
-  const [data, setData] = useState({});
+  const [programData, setProgramData] = useState({});
 
   const [programName, setProgramName] = useState('');
 
@@ -26,7 +26,7 @@ function CreateNewWorkout() {
         description: data.description,
       };
     }
-  }, [data]);
+  }, [programData]);
 
   const [workouts, setWorkouts] = useState([]);
 
@@ -59,23 +59,25 @@ function CreateNewWorkout() {
   };
 
   return (
-    <workoutContext.Provider value={{ data, setData }}>
+    <workoutContext.Provider value={{ workoutData, setData }}>
       <div className='background'>
-        <h3 className='titleText'>Workout name:</h3>
-        <input
-          onChange={(e) => setProgramName(e.target.value)}
-          className='titleChoosen'
-          placeholder='Workout name'
-        ></input>
-        <div>
-          <button onClick={addNewWorkout} className='addWorkout'>
-            New workout +
+        <div className='programContent'>
+          <h3 className='titleText'>Program name:</h3>
+          <input
+            onChange={(e) => setProgramName(e.target.value)}
+            className='titleChosen'
+            placeholder='Program name'
+          ></input>
+          <div className='workoutFeed'>
+            <button onClick={addNewWorkout} className='addWorkout'>
+              New workout +
+            </button>
+            <div className='workoutWrapper'>{workouts}</div>
+          </div>
+          <button onClick={saveProgram} className='addWorkout'>
+            Save program
           </button>
-          <div className='workoutWrapper'>{workouts}</div>
         </div>
-        <button onClick={saveProgram} className='addWorkout'>
-          Save program
-        </button>
       </div>
     </workoutContext.Provider>
   );

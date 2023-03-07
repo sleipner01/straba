@@ -1,11 +1,22 @@
-.mainContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  overflow-y: hidden;
-}
+// .mainContainer {
+//   display: flex;
+//   flex-direction: row;
+//   flex-wrap: wrap;
+//   overflow-y: hidden;
+// }
+
+// .content {
+//   flex: 1 0 auto;
+//   overflow-y: auto;
+// }
 
 .content {
-  flex: 1 0 auto;
+  height: 100%;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100vw;
+  overflow-x: hidden;
   overflow-y: auto;
+  margin-top: 50px;
+  margin-left: 200px;
 }

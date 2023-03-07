@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useContext, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -12,40 +12,13 @@ import NewActivity from '../newActivity/NewActivity';
 import { workoutContext } from '../../pages/CreateNewWorkout';
 import './NewWorkout.scss';
 
-// handle style for expansion of card, gives cool tapping effect
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
-
-const EditPage = styled((props) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+export const activityContext = createContext();
+const allActivities = {};
 
 export default function NewWorkout({ workout }) {
-  // handle expanding card
-  const [expanded, setExpanded] = React.useState(false);
-  const handleExpandClick = (e) => {
-    if (e.target.id !== 'activityName') {
-      setExpanded(!expanded);
-    }
-  };
-
-  const [data, setData] = useState({});
-  const [programName, setProgramName] = useState('');
+  const [workoutData, setWorkoutData] = useState({});
+  const [activityData, setActivityData] = useContext(activityContext);
+  const [workoutName, setWorkoutName] = useState('');
   const [activities, setActivities] = useState([]);
 
   const addNewActivity = () => {
@@ -53,12 +26,12 @@ export default function NewWorkout({ workout }) {
   };
 
   return (
-    <workoutContext.Provider value={{ data, setData }}>
-      <div className='background'>
+    <activityContext.Provider value={{ activityData, setActivityData }}>
+      <div>
         <h3 className='titleText'>Workout name:</h3>
         <input
-          onChange={(e) => setProgramName(e.target.value)}
-          className='titleChoosen'
+          onChange={(e) => setWorkoutName(e.target.value)}
+          className='titleChosen'
           placeholder='Workout name'
         ></input>
         <div>
@@ -67,10 +40,10 @@ export default function NewWorkout({ workout }) {
           </button>
           <div className='activityWrapper'>{activities}</div>
         </div>
+        {console.log(activities)}
       </div>
-    </workoutContext.Provider>
+    </activityContext.Provider>
   );
-
 
   // return (
   //   <Card sx={{ maxWidth: 700, backgroundColor: '#FCE181' }}>
