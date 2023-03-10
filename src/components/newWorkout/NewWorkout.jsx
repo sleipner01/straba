@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { createContext, useEffect, useContext, useState } from 'react';
 import NewActivity from '../newActivity/NewActivity';
-import { workoutContext } from '../../pages/CreateNewWorkout';
+import { workoutContext } from '../../pages/CreateNewProgram';
 import './NewWorkout.scss';
 
 export const activityContext = createContext();

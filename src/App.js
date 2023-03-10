@@ -1,7 +1,7 @@
 import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
-import CreateNewWorkout from './pages/CreateNewWorkout';
+import CreateNewProgram from './pages/CreateNewProgram';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
@@ -37,8 +37,7 @@ function App() {
             </Route>
             <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
-            {/* <Route path='/createNewProgram' element={<CreateNewProgram />} /> */}
-            <Route path='/createNewWorkout' element={<CreateNewWorkout />} />
+            <Route path='/newprogram' element={<CreateNewProgram />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
         </Box>
