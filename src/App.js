@@ -33,7 +33,7 @@ function App() {
           <Routes>
             <Route element={<Authenticated auth={user} />}>
               <Route exact path='/' element={<Home />} />
-              <Route exact path='/workouts' element={<WorkoutOverview />} />
+              <Route exact path='/programs' element={<WorkoutOverview />} />
             </Route>
             <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
