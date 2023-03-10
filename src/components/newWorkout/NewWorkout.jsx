@@ -28,7 +28,7 @@ export default function NewWorkout({ workoutIndex }) {
 
   // setup useEffect so activity info updates onchange to field1 and field2
   useEffect(() => {
-    if (activityData.activityIndex != undefined) {
+    if (activityData.activityIndex !== undefined) {
       allActivities[activityData.activityIndex] = {
         activityName: activityData.activityName,
         field1Type: activityData.field1Type,

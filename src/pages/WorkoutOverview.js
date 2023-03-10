@@ -30,9 +30,9 @@ function WorkoutOverview() {
     }
   };
 
-  const getIconForWorkoutType = (workoutType) => {
-    if (!workoutType) return null;
-    switch (workoutType.toLowerCase()) {
+  const getIconForProgramType = (programType) => {
+    if (!programType) return null;
+    switch (programType.toLowerCase()) {
       case 'strength training':
         return <FitnessCenterIcon fontSize='150px' />;
       case 'cardio':
@@ -76,7 +76,7 @@ function WorkoutOverview() {
                   <Typography color='textSecondary'>{data.description}</Typography>
                 </CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
-                  {getIconForWorkoutType(data.workoutType)}
+                  {getIconForProgramType(data.programType)}
                 </div>
               </div>
             </Card>

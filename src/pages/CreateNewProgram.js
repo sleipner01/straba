@@ -1,9 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import NewWorkout from '../components/newWorkout/NewWorkout';
 import './CreateNewProgram.scss';
 import { auth, db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { FormControl, NativeSelect, TextField } from '@mui/material';
 
 export const workoutContext = createContext();
 const allWorkouts = {};
@@ -15,6 +16,8 @@ function CreateNewProgram() {
 
   const [programData, setProgramData] = useState({});
   const [programName, setProgramName] = useState('');
+  const [programType, setProgramType] = useState('strength');
+  const [programDescription, setProgramDescription] = useState('');
 
   const addNewWorkout = () => {
     setWorkouts(workouts.concat(<NewWorkout key={workouts.length} workoutIndex={workouts.length} />));
@@ -28,7 +31,7 @@ function CreateNewProgram() {
   };
 
   useEffect(() => {
-    if (workoutData.workoutIndex != undefined) {
+    if (workoutData.workoutIndex !== undefined) {
       allWorkouts[workoutData.workoutIndex] = {
         workoutName: workoutData.workoutName,
         activities: workoutData.activities,
@@ -62,17 +65,17 @@ function CreateNewProgram() {
     try {
       await addDoc(collection(db, 'programs'), {
         name: programName,
+        description: programDescription,
         private: false,
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid,
-        workoutType: 'strength training',
+        programType: programType,
         workouts: workoutInfo,
-        link: '/' + programName,
       });
     } catch {
-      console.log('Something went wrong saving workout.');
+      alert('Something went wrong saving workout.');
     }
-    navigate('/workouts');
+    navigate('/programs');
   };
 
   return (
@@ -85,6 +88,41 @@ function CreateNewProgram() {
             className='titleChosen'
             placeholder='Program name'
           ></input>
+          <div className='programInfo'>
+            <p>Program type</p>
+            <FormControl sx={{ m: 1, width: '200px' }} variant='standard'>
+              <NativeSelect
+                id='setType'
+                defaultValue='strength'
+                onChange={(e) => {
+                  setProgramType(e.target.value);
+                }}
+              >
+                <option value={'strength'}>Strength training</option>
+                <option value={'cardio'}>Cardio</option>
+                <option value={'flexibility'}>Flexibility</option>
+                <option value={'custom'}>Custom</option>
+              </NativeSelect>
+            </FormControl>
+          </div>
+          <div className='programInfo'>
+            <p>Description</p>
+            <TextField
+              value={programDescription}
+              inputProps={{
+                sx: {
+                  fontSize: '15px',
+                  padding: '1px 3px',
+                  marginTop: '15px',
+                  width: 600,
+                },
+              }}
+              variant='standard'
+              multiline
+              maxRows={5}
+              onChange={(e) => setProgramDescription(e.target.value)}
+            />
+          </div>
           <div className='workoutFeed'>
             <button onClick={addNewWorkout} className='addWorkout'>
               New workout +
