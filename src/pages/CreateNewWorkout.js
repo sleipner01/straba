@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import NewWorkout from '../components/newWorkout/NewWorkout';
 import './CreateNewWorkout.scss';
 import { auth, db } from '../firebase';
@@ -11,40 +11,52 @@ const allWorkouts = {};
 function CreateNewWorkout() {
   const navigate = useNavigate();
 
-  const [programData, setProgramData] = useState({});
+  const [workoutData, setWorkoutData] = useState({});
 
+  const [programData, setProgramData] = useState({});
   const [programName, setProgramName] = useState('');
 
+  const addNewWorkout = () => {
+    setWorkouts(workouts.concat(<NewWorkout key={workouts.length} workoutIndex={workouts.length} />));
+  };
+
+  const handleUpdateProgramData = () => {
+    setProgramData({
+      programName: programName,
+      workouts: allWorkouts,
+    });
+  };
+
   useEffect(() => {
-    if (data.index != undefined) {
-      allWorkouts[data.index] = {
-        workoutName: data.workoutName,
-        field1Type: data.field1Type,
-        field1Value: data.field1Value,
-        field2Type: data.field2Type,
-        field2Value: data.field2Value,
-        description: data.description,
+    if (workoutData.workoutIndex != undefined) {
+      allWorkouts[workoutData.workoutIndex] = {
+        workoutName: workoutData.workoutName,
+        activities: workoutData.activities,
       };
     }
-  }, [programData]);
+    handleUpdateProgramData();
+  }, [workoutData, programName]);
 
   const [workouts, setWorkouts] = useState([]);
 
-  const addNewWorkout = () => {
-    setWorkouts(workouts.concat(<NewWorkout key={workouts.length} index={workouts.length} />));
-  };
-
   const saveProgram = async () => {
     console.log('Saved workouts ' + JSON.stringify(allWorkouts));
-    const workoutList = [];
+    let workoutInfo = [];
     Object.entries(allWorkouts).map((workout) => {
-      workoutList.push({
+      let activityInfo = [];
+      Object.entries(workout[1].activities).map((activity) => {
+        activityInfo.push({
+          activityName: activity[1].activityName,
+          field1Type: activity[1].field1Type,
+          field1Value: activity[1].field1Value,
+          field2Type: activity[1].field2Type,
+          field2Value: activity[1].field2Value,
+          description: activity[1].description,
+        });
+      });
+      workoutInfo.push({
         workoutName: workout[1].workoutName,
-        field1Type: workout[1].field1Type,
-        field1Value: workout[1].field1Value,
-        field2Type: workout[1].field2Type,
-        field2Value: workout[1].field2Value,
-        description: workout[1].description,
+        activities: activityInfo,
       });
     });
     try {
@@ -54,7 +66,7 @@ function CreateNewWorkout() {
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid,
         workoutType: 'strength training',
-        activities: workoutList,
+        workouts: workoutInfo,
         link: '/' + programName,
       });
     } catch {
@@ -64,7 +76,7 @@ function CreateNewWorkout() {
   };
 
   return (
-    <workoutContext.Provider value={{ workoutData, setData }}>
+    <workoutContext.Provider value={{ workoutData, setWorkoutData }}>
       <div className='background'>
         <div className='programContent'>
           <h3 className='titleText'>Program name:</h3>

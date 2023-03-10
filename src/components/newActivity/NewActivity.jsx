@@ -25,7 +25,7 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewActivity({ index }) {
+export default function NewActivity({ activityIndex }) {
   const { activityData, setActivityData } = useContext(activityContext);
 
   const regex = /^(\s*|\d+)$/;
@@ -75,7 +75,7 @@ export default function NewActivity({ index }) {
     }
     updateActivityInfo(activityInfo);
     setActivityData({
-      index: index,
+      activityIndex: activityIndex,
       activityName: activityName,
       field1Type: field1Type,
       field1Value: field1Value,
