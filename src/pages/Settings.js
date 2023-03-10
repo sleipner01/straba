@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Error } from '../components/misc/usefulComponents';
 import { auth } from '../firebase';
 import { updateProfile } from 'firebase/auth';
@@ -9,11 +9,33 @@ const Settings = () => {
   const [nameValid, setNameValidState] = useState(false);
   const [nameSubmitDisabled, setNameSubmitDisabledState] = useState(true);
   const [errorText, setError] = useState();
+  const [imgLoadedSuccessfully, setImgLoadedSuccessfully] = useState(false);
+
+  const profileImage = useRef();
+  const profileIcon = useRef();
 
   useEffect(() => {
     checkNameSubmitValid();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nameValid]);
+
+  useEffect(() => {
+    if (imgLoadedSuccessfully) {
+      displayImage();
+    } else {
+      hideImage();
+    }
+  }, [imgLoadedSuccessfully]);
+
+  function displayImage() {
+    profileImage.current.style.display = 'block';
+    profileIcon.current.style.display = 'none';
+  }
+
+  function hideImage() {
+    profileImage.current.style.display = 'none';
+    profileIcon.current.style.display = 'block';
+  }
 
   function checkNameSubmitValid() {
     // check if all fields are valid
@@ -50,8 +72,14 @@ const Settings = () => {
         <span>{auth.currentUser.displayName}</span>
       </div>
       <div>
-        <AccountCircle className='personIcon' />
-        <img src={auth.currentUser.photoURL} alt='Profile Picture' width='80px' height='80px' />
+        <img
+          src={null}
+          onError={() => setImgLoadedSuccessfully(false)}
+          onLoad={() => setImgLoadedSuccessfully(true)}
+          alt='Profile'
+          ref={profileImage}
+        />
+        <AccountCircle className='personIcon' ref={profileIcon} />
       </div>
       <h2>Update your account information</h2>
       <form>
