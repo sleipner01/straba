@@ -15,21 +15,29 @@ export default function NewWorkout({ workoutIndex }) {
   const [activities, setActivities] = useState([]);
 
   const addNewActivity = () => {
-    setActivities(activities.concat(<NewActivity key={activities.length} activityIndex={activities.length} />));
+    setActivities(
+      activities.concat(
+        <NewActivity key={activities.length} activityIndex={activities.length} workoutIndex={workoutIndex} />,
+      ),
+    );
   };
 
   const handleUpdateWorkoutInfo = () => {
     setWorkoutData({
       workoutIndex: workoutIndex,
       workoutName: workoutName,
-      activities: allActivities,
+      activities: allActivities[workoutIndex],
     });
   };
 
   // setup useEffect so activity info updates onchange to field1 and field2
   useEffect(() => {
-    if (activityData.activityIndex !== undefined) {
-      allActivities[activityData.activityIndex] = {
+    if (activityData.workoutIndex === workoutIndex && activityData.activityIndex !== undefined) {
+      if (!allActivities[workoutIndex]) {
+        allActivities[workoutIndex] = [];
+      }
+      console.log(allActivities);
+      allActivities[workoutIndex][activityData.activityIndex] = {
         activityName: activityData.activityName,
         field1Type: activityData.field1Type,
         field1Value: activityData.field1Value,
@@ -37,6 +45,7 @@ export default function NewWorkout({ workoutIndex }) {
         field2Value: activityData.field2Value,
         description: activityData.description,
       };
+      console.log(allActivities);
     }
     handleUpdateWorkoutInfo();
   }, [activityData, workoutName]);
