@@ -9,14 +9,11 @@ import WhatshotIcon from '@mui/icons-material/Whatshot';
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
-
 function WorkoutOverview() {
   const [firebaseData, setFirebaseData] = useState();
-
   const loadProgramsFromFirestore = async () => {
     try {
       const q = query(collection(db, 'programs'), where('private', '==', false));
-
       await getDocs(q).then((querySnapshot) => {
         console.log(querySnapshot);
         querySnapshot.docs.map((doc) => {
@@ -29,7 +26,6 @@ function WorkoutOverview() {
       console.error('Retrieving documents failed" ' + error);
     }
   };
-
   const getIconForWorkoutType = (workoutType) => {
     if (!workoutType) return null;
     switch (workoutType.toLowerCase()) {
@@ -43,21 +39,20 @@ function WorkoutOverview() {
         return null;
     }
   };
-
   useEffect(() => {
     loadProgramsFromFirestore();
   }, []);
-
   return (
     <div style={{ marginTop: '40px', marginLeft: '10px', position: 'absolute' }}>
       {!firebaseData ? (
         <LoadingDots />
       ) : (
         firebaseData.map((data, index) => (
-          <Link to={data.link} key={index} style={{ textDecoration: 'none' }}>
+          <Link to={`/programs/${data.id}`} key={index} style={{ textDecoration: 'none' }}>
             <Card
               sx={{
-                backgroundColor: '#f5f5f5',
+                maxWidth: '1100px',
+                backgroundColor: '#F5F5F5',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
                 padding: '20px',
@@ -86,5 +81,4 @@ function WorkoutOverview() {
     </div>
   );
 }
-
 export default WorkoutOverview;

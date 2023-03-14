@@ -28,7 +28,9 @@ export default function Sidebar() {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        userDisplayName.current.innerHTML = user.displayName != null ? user.displayName : 'Chief';
+        const fullName = user.displayName;
+        const firstName = fullName.split(' ')[0];
+        userDisplayName.current.innerHTML = firstName ? firstName : 'Chief';
       }
     });
   }, []);
@@ -42,9 +44,15 @@ export default function Sidebar() {
             <span className='sidebarListPersonText' ref={userDisplayName}></span>
           </li>
           <li className='sidebarListItem'>
+            <NavLink to='/myPrograms' className='navLink'>
+              <FitnessCenterIcon className='sidebarIcon' />
+              <span className='sidebarListItemText'>View my programs</span>
+            </NavLink>
+          </li>
+          <li className='sidebarListItem'>
             <NavLink to='/workouts' className='navLink'>
               <FitnessCenterIcon className='sidebarIcon' />
-              <span className='sidebarListItemText'>View programs</span>
+              <span className='sidebarListItemText'>Discover programs</span>
             </NavLink>
           </li>
           <li className='sidebarListItem'>
