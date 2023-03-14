@@ -1,11 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
+import { Card, CardContent, Typography } from '@mui/material';
+import { FitnessCenter, DirectionsRun, SelfImprovement, AccessibilityNew } from '@mui/icons-material';
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
@@ -30,15 +26,17 @@ function WorkoutOverview() {
     }
   };
 
-  const getIconForWorkoutType = (workoutType) => {
-    if (!workoutType) return null;
-    switch (workoutType.toLowerCase()) {
-      case 'strength training':
-        return <FitnessCenterIcon fontSize='150px' />;
+  const getIconForProgramType = (programType) => {
+    if (!programType) return null;
+    switch (programType.toLowerCase()) {
+      case 'strength':
+        return <FitnessCenter fontSize='150px' />;
       case 'cardio':
-        return <DirectionsRunIcon fontSize='150px' />;
-      case 'hiit':
-        return <WhatshotIcon fontSize='150px' />;
+        return <DirectionsRun fontSize='150px' />;
+      case 'flexibility':
+        return <SelfImprovement fontSize='150px' />;
+      case 'custom':
+        return <AccessibilityNew fontSize='150px' />;
       default:
         return null;
     }
@@ -76,7 +74,7 @@ function WorkoutOverview() {
                   <Typography color='textSecondary'>{data.description}</Typography>
                 </CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
-                  {getIconForWorkoutType(data.workoutType)}
+                  {getIconForProgramType(data.programType)}
                 </div>
               </div>
             </Card>
