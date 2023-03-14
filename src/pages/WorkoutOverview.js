@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
@@ -27,7 +28,7 @@ function WorkoutOverview() {
     }
   };
   const getIconForWorkoutType = (workoutType) => {
-    if (!workoutType) return null;
+    if (!workoutType) return <QuestionMarkIcon fontSize='150px' />;
     switch (workoutType.toLowerCase()) {
       case 'strength training':
         return <FitnessCenterIcon fontSize='150px' />;
@@ -51,7 +52,7 @@ function WorkoutOverview() {
           <Link to={`/programs/${data.id}`} key={index} style={{ textDecoration: 'none' }}>
             <Card
               sx={{
-                maxWidth: '1100px',
+                width: '75vw',
                 backgroundColor: '#F5F5F5',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
@@ -68,7 +69,9 @@ function WorkoutOverview() {
                   <Typography variant='h5' component='h2'>
                     {data.name}
                   </Typography>
-                  <Typography color='textSecondary'>{data.description}</Typography>
+                  <Typography color='textSecondary' sx={{ maxWidth: '55vw' }}>
+                    {data.description}
+                  </Typography>
                 </CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
                   {getIconForWorkoutType(data.workoutType)}

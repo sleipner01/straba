@@ -59,7 +59,11 @@ function ProgramPage() {
               {workout.activities.map((activities) => (
                 <div key={activities.activityName}>
                   <p>
-                    {activities.activityName}: {activities.field1Value}
+                    <strong>{activities.activityName}:</strong>
+                    <br />
+                    {activities.field1Type}: {activities.field1Value}
+                    <br></br>
+                    {activities.field2Type}: {activities.field2Value}
                   </p>
                 </div>
               ))}

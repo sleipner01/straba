@@ -54,7 +54,8 @@ function MyPrograms() {
           <Link to={`/programs/${data.id}`} key={index} style={{ textDecoration: 'none' }}>
             <Card
               sx={{
-                maxWidth: '1100px',
+                width: '75vw',
+                maxWidth: '75vw',
                 backgroundColor: '#F5F5F5',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
@@ -71,7 +72,9 @@ function MyPrograms() {
                   <Typography variant='h5' component='h2'>
                     {data.name}
                   </Typography>
-                  <Typography color='textSecondary'>{data.description}</Typography>
+                  <Typography color='textSecondary' sx={{ maxWidth: '55vw' }}>
+                    {data.description}
+                  </Typography>
                 </CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
                   {getIconForWorkoutType(data.workoutType)}
