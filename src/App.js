@@ -14,7 +14,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 import { Box } from '@mui/material';
 import ProgramPage from './pages/ProgramPage';
-import ProgramOverview from './pages/ProgramOverview';
+import MyPrograms from './pages/MyPrograms';
 function App() {
   const [user, loading, error] = useAuthState(auth);
   if (loading) {
@@ -39,7 +39,7 @@ function App() {
             <Route path='/createNewProgram' element={<CreateNewProgram />} />
             <Route path='/createNewWorkout' element={<CreateNewWorkout />} />
             <Route path='/programs/:id' element={<ProgramPage />} />
-            <Route path='/myPrograms' element={<ProgramOverview />} />
+            <Route path='/myPrograms' element={<MyPrograms />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
         </Box>
