@@ -7,6 +7,7 @@ import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
@@ -30,14 +31,16 @@ function WorkoutOverview() {
   const getIconForWorkoutType = (workoutType) => {
     if (!workoutType) return <QuestionMarkIcon fontSize='150px' />;
     switch (workoutType.toLowerCase()) {
-      case 'strength training':
+      case 'strength':
         return <FitnessCenterIcon fontSize='150px' />;
       case 'cardio':
         return <DirectionsRunIcon fontSize='150px' />;
       case 'hiit':
         return <WhatshotIcon fontSize='150px' />;
+      case 'flexibility':
+        return <SelfImprovementIcon fontSize='150px' />;
       default:
-        return null;
+        return <QuestionMarkIcon fontSize='150px' />;
     }
   };
   useEffect(() => {
@@ -74,7 +77,7 @@ function WorkoutOverview() {
                   </Typography>
                 </CardContent>
                 <div style={{ display: 'flex', alignItems: 'center', fontSize: '110px' }}>
-                  {getIconForWorkoutType(data.workoutType)}
+                  {getIconForWorkoutType(data.programType)}
                 </div>
               </div>
             </Card>
