@@ -64,6 +64,10 @@ const Settings = () => {
       });
   };
 
+  const deleteProfile = async (e) => {
+    alert('yeah');
+  };
+
   return (
     <div>
       <h1>Settings</h1>
@@ -100,6 +104,8 @@ const Settings = () => {
         <button disabled={nameSubmitDisabled} type='submit' onClick={updateAuthName}>
           Update
         </button>
+        <label htmlFor='deleteProfile'>Delete profile</label>
+        <buytton onClick={deleteProfile}>Delete</buytton>
         <br />
         {errorText && <Error errorMessage={errorText} />}
       </form>
