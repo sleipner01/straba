@@ -104,8 +104,10 @@ const Settings = () => {
         <button disabled={nameSubmitDisabled} type='submit' onClick={updateAuthName}>
           Update
         </button>
+        <br />
         <label htmlFor='deleteProfile'>Delete profile</label>
-        <buytton onClick={deleteProfile}>Delete</buytton>
+        <br />
+        <button onClick={deleteProfile}>Delete profile</button>
         <br />
         {errorText && <Error errorMessage={errorText} />}
       </form>
