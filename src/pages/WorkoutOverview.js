@@ -60,7 +60,7 @@ function WorkoutOverview() {
             <Card
               sx={{
                 width: '75vw',
-                backgroundColor: '#F5F5F5',
+                backgroundColor: '#FCE181',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
                 padding: '20px',
