@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -8,6 +8,7 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
@@ -28,6 +29,7 @@ function WorkoutOverview() {
       console.error('Retrieving documents failed" ' + error);
     }
   };
+
   const getIconForWorkoutType = (workoutType) => {
     if (!workoutType) return <QuestionMarkIcon fontSize='150px' />;
     switch (workoutType.toLowerCase()) {
@@ -39,6 +41,8 @@ function WorkoutOverview() {
         return <WhatshotIcon fontSize='150px' />;
       case 'flexibility':
         return <SelfImprovementIcon fontSize='150px' />;
+      case 'custom':
+        return <AccessibilityNewIcon fontSize='150px' />;
       default:
         return <QuestionMarkIcon fontSize='150px' />;
     }

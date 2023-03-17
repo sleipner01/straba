@@ -1,10 +1,14 @@
 .sidebar {
-  height: calc(100vh - 50px);
+  height: 100vh;
   /* overflow-y: scroll; */
   background-color: #c3ebdd;
-  position: sticky;
+  position: fixed;
   top: 50px;
+  left: 0;
   flex-basis: 240px;
+  padding-bottom: 20px;
+  width: 200px;
+  z-index: 998;
 }
 
 /* ::-webkit-scrollbar {

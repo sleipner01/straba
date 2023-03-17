@@ -2,7 +2,6 @@ import './sidebar.scss';
 import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { FitnessCenter, Person } from '@mui/icons-material';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { auth } from '../../firebase';
 import { signOut } from 'firebase/auth';
@@ -56,8 +55,8 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <li className='sidebarListItem'>
-            <NavLink to='/createnewworkout' className='navLink'>
-              <FitnessCenterIcon className='sidebarIcon' />
+            <NavLink to='/newprogram' className='navLink'>
+              <FitnessCenter className='sidebarIcon' />
               <span className='sidebarListItemText'>Create program</span>
             </NavLink>
           </li>

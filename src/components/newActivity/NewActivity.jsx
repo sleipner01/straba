@@ -11,7 +11,7 @@ import './NewActivity.scss';
 
 import FormControl from '@mui/material/FormControl';
 import NativeSelect from '@mui/material/NativeSelect';
-import { activityContext } from '../../pages/CreateNewWorkout';
+import { activityContext } from '../newWorkout/NewWorkout';
 
 // handle style for expansion of card, gives cool tapping effect
 const ExpandMore = styled((props) => {
@@ -25,8 +25,8 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function NewActivity({ index }) {
-  const { data, setData } = useContext(activityContext);
+export default function NewActivity({ activityIndex, workoutIndex }) {
+  const { activityData, setActivityData } = useContext(activityContext);
 
   const regex = /^(\s*|\d+)$/;
 
@@ -74,8 +74,9 @@ export default function NewActivity({ index }) {
       activityInfo = activityInfo.concat(`${field2Value} ${field2Type}`);
     }
     updateActivityInfo(activityInfo);
-    setData({
-      index: index,
+    setActivityData({
+      workoutIndex: workoutIndex,
+      activityIndex: activityIndex,
       activityName: activityName,
       field1Type: field1Type,
       field1Value: field1Value,
