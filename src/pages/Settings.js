@@ -11,17 +11,13 @@ const Settings = () => {
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [nameValid, setNameValidState] = useState(false);
-  const [nameSubmitDisabled, setNameSubmitDisabledState] = useState(true);
+  const [phoneNumberInput, setPhoneNumber] = useState('');
+  const [phoneValid, setPhoneValidState] = useState(false);
   const [errorText, setError] = useState();
   const [imgLoadedSuccessfully, setImgLoadedSuccessfully] = useState(false);
 
   const profileImage = useRef();
   const profileIcon = useRef();
-
-  useEffect(() => {
-    checkNameSubmitValid();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nameValid]);
 
   useEffect(() => {
     if (imgLoadedSuccessfully) {
@@ -41,17 +37,22 @@ const Settings = () => {
     profileIcon.current.style.display = 'block';
   }
 
-  function checkNameSubmitValid() {
-    // check if all fields are valid
-    let submitValid = nameValid;
-    setNameSubmitDisabledState(!submitValid);
-  }
-
   function handleChangeName(name) {
     // separate handler for each field
     let nameValid = name ? true : false; // basic text validation
     setName(name);
     setNameValidState(nameValid);
+  }
+
+  function handleChangePhone(input) {
+    // separate handler for each field
+    let phoneValid = false;
+    if (input && input.length === 8) {
+      phoneValid = true;
+    }
+
+    setPhoneNumber(input);
+    setPhoneValidState(phoneValid);
   }
 
   const updateUserDoc = async (name) => {
@@ -74,6 +75,7 @@ const Settings = () => {
       .then(() => {
         updateUserDoc(name);
         console.log('Updated auth name');
+        setName('');
       })
       .catch((error) => {
         console.error(error);
@@ -88,6 +90,7 @@ const Settings = () => {
       })
       .catch((error) => {
         console.error(error);
+        setError(error.message);
       });
   };
 
@@ -104,6 +107,21 @@ const Settings = () => {
       .catch((error) => {
         // An error ocurred
         console.err(error);
+        setError(error.message);
+      });
+  };
+
+  const updatePhoneNumber = async (e) => {
+    e.preventDefault();
+    updateDoc(doc(db, 'users', auth.currentUser.uid), {
+      phoneNumber: phoneNumberInput,
+    })
+      .then(() => {
+        console.log('Updated phone number');
+        setPhoneNumber('');
+      })
+      .catch((error) => {
+        console.error(error);
         setError(error.message);
       });
   };
@@ -140,10 +158,27 @@ const Settings = () => {
           value={name}
           onChange={(e) => handleChangeName(e.target.value)}
         />
-        <br />
-        <button disabled={nameSubmitDisabled} type='submit' onClick={updateAuthName}>
+        <button disabled={!nameValid} type='submit' onClick={updateAuthName}>
           Update
         </button>
+        <br />
+        <label className='label' htmlFor='phoneNumber'>
+          Phone Number
+        </label>
+        <br />
+        <input
+          type='number'
+          name='phoneNumber'
+          id='phoneNumber'
+          placeholder='12345678'
+          className='input'
+          value={phoneNumberInput}
+          onChange={(e) => handleChangePhone(e.target.value)}
+        />
+        <button disabled={!phoneValid} type='submit' onClick={updatePhoneNumber}>
+          Update
+        </button>
+
         <br />
         <label htmlFor='deleteProfile'>Delete profile</label>
         <br />
