@@ -1,73 +1,73 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.yes-button {
+  background-color: rgba(100, 200, 100, 0.9);
+  color: white;
+  font-size: 2rem;
+  padding: 2rem 3.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.yes-button:hover {
+  transform: scale(1.1);
+}
+
+.training-count-text {
+  font-size: 2rem;
+  margin-top: 4rem;
+  font-weight: bold;
+}
+
+.training-count {
+  font-size: 4rem;
+}
+
+.celebrate {
+  animation: celebrate 1s ease-out;
+}
+
+.fade-out {
+  animation: fade-out 0.5s forwards;
+  pointer-events: none;
+}
+
+@keyframes celebrate {
+  0% {
+    transform: scale(1);
+    color: inherit;
   }
-  
-  .button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 2rem;
+  50% {
+    transform: scale(1.2);
+    color: green;
   }
-  
-  .yes-button {
-    background-color: rgba(100, 200, 100, 0.9);
-    color: white;
-    font-size: 2rem;
-    padding: 2rem 3.5rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+  100% {
+    transform: scale(1);
+    color: inherit;
   }
-  
-  .yes-button:hover {
-    transform: scale(1.1);
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
   }
-  
-  .training-count-text {
-    font-size: 2rem;
-    margin-top: 4rem;
-    font-weight: bold;
+  100% {
+    opacity: 0;
+    display: none;
   }
-  
-  .training-count {
-    font-size: 4rem;
-  }
-  
-  .celebrate {
-    animation: celebrate 1s ease-out;
-  }
-  
-  .fade-out {
-    animation: fade-out 0.5s forwards;
-    pointer-events: none;
-  }
-  
-  @keyframes celebrate {
-    0% {
-      transform: scale(1);
-      color: inherit;
-    }
-    50% {
-      transform: scale(1.2);
-      color: green;
-    }
-    100% {
-      transform: scale(1);
-      color: inherit;
-    }
-  }
-  
-  @keyframes fade-out {
-    0% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-      display: none;
-    }
-  }
+}

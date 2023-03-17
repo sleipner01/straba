@@ -60,7 +60,7 @@ function MyPrograms() {
                 maxWidth: '75vw',
                 backgroundColor: '#F5F5F5',
                 borderRadius: '10px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
                 padding: '20px',
                 marginBottom: '20px',
                 transition: 'transform 0.2s ease-in-out',

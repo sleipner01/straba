@@ -39,8 +39,8 @@ function ProgramPage() {
   }
   return (
     <div>
-      <h1>{program.name}</h1>
-      <p>{program.description}</p>
+      <h1 style={{ marginLeft: '10px' }}>{program.name}</h1>
+      <p style={{ marginLeft: '10px' }}>{program.description}</p>
       {console.log(program)}
       {program.workouts.map((workout) => (
         <div key={workout.workoutName}>
@@ -48,9 +48,11 @@ function ProgramPage() {
             sx={{
               backgroundColor: '#F5DABE',
               borderRadius: '10px',
-              boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+              boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
               padding: '20px',
               marginBottom: '20px',
+              marginLeft: '10px',
+              marginRight: '10px',
             }}
           >
             <CardContent>
