@@ -36,7 +36,6 @@ export default function NewWorkout({ workoutIndex }) {
       if (!allActivities[workoutIndex]) {
         allActivities[workoutIndex] = [];
       }
-      console.log(allActivities);
       allActivities[workoutIndex][activityData.activityIndex] = {
         activityName: activityData.activityName,
         field1Type: activityData.field1Type,
@@ -45,7 +44,6 @@ export default function NewWorkout({ workoutIndex }) {
         field2Value: activityData.field2Value,
         description: activityData.description,
       };
-      console.log(allActivities);
     }
     handleUpdateWorkoutInfo();
   }, [activityData, workoutName]);
