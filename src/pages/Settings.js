@@ -1,10 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import { Error } from '../components/misc/usefulComponents';
 import { auth } from '../firebase';
-import { updateProfile } from 'firebase/auth';
+import { updateProfile, deleteUser } from 'firebase/auth';
+import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
 import { AccountCircle } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
+import { db } from '../firebase';
 
 const Settings = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState('');
   const [nameValid, setNameValidState] = useState(false);
   const [nameSubmitDisabled, setNameSubmitDisabledState] = useState(true);
@@ -50,12 +54,25 @@ const Settings = () => {
     setNameValidState(nameValid);
   }
 
+  const updateUserDoc = async (name) => {
+    await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+      name: name,
+    })
+      .then(() => {
+        console.log('Updated user doc');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const updateAuthName = async (e) => {
     e.preventDefault();
     updateProfile(auth.currentUser, {
       displayName: name,
     })
       .then(() => {
+        updateUserDoc(name);
         console.log('Updated auth name');
       })
       .catch((error) => {
@@ -64,8 +81,31 @@ const Settings = () => {
       });
   };
 
+  const deleteUserDoc = async (userId) => {
+    await deleteDoc(doc(db, 'users', userId))
+      .then(() => {
+        console.log('Deleted user doc');
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const deleteProfile = async (e) => {
-    alert('yeah');
+    e.preventDefault();
+    const userId = auth.currentUser.uid;
+    deleteUser(auth.currentUser)
+      .then(() => {
+        deleteUserDoc(userId);
+        // User deleted.
+        console.log('User deleted');
+        navigate('/login');
+      })
+      .catch((error) => {
+        // An error ocurred
+        console.err(error);
+        setError(error.message);
+      });
   };
 
   return (
