@@ -51,7 +51,7 @@ function ProgramPage() {
               backgroundColor: '#F5DABE',
               borderRadius: '10px',
               boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
-              padding: '20px',
+              paddingLeft: '10px',
               marginBottom: '20px',
               marginLeft: '30px',
               marginRight: '10px',
@@ -73,6 +73,8 @@ function ProgramPage() {
                     {activities.field1Type}: {activities.field1Value}
                     <br></br>
                     {activities.field2Type}: {activities.field2Value}
+                    <br />
+                    {activities.description}
                   </p>
                 </div>
               ))}
