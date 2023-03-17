@@ -35,8 +35,8 @@ function App() {
             </Route>
             <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
-            <Route path='/createNewProgram' element={<CreateNewProgram />} />
-            <Route path='/createNewWorkout' element={<CreateNewWorkout />} />
+            <Route path='/newprogram' element={<CreateNewProgram />} />
+            <Route path='/workouts' element={<WorkoutOverview />} />
             <Route path='/programs/:id' element={<ProgramPage />} />
             <Route path='/myPrograms' element={<MyPrograms />} />
             <Route path='*' element={<NoMatch />} />

@@ -44,13 +44,13 @@ export default function Sidebar() {
           </li>
           <li className='sidebarListItem'>
             <NavLink to='/myPrograms' className='navLink'>
-              <FitnessCenterIcon className='sidebarIcon' />
+              <FitnessCenter className='sidebarIcon' />
               <span className='sidebarListItemText'>View my programs</span>
             </NavLink>
           </li>
           <li className='sidebarListItem'>
             <NavLink to='/workouts' className='navLink'>
-              <FitnessCenterIcon className='sidebarIcon' />
+              <FitnessCenter className='sidebarIcon' />
               <span className='sidebarListItemText'>Discover programs</span>
             </NavLink>
           </li>

@@ -8,7 +8,7 @@ import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew'
+import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
 import { db } from '../firebase';
 import { getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
