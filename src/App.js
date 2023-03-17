@@ -12,18 +12,16 @@ import { Error, LoadingDots, NoMatch } from './components/misc/usefulComponents'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 import { Box } from '@mui/material';
-
+import ProgramPage from './pages/ProgramPage';
+import MyPrograms from './pages/MyPrograms';
 function App() {
   const [user, loading, error] = useAuthState(auth);
-
   if (loading) {
     return <LoadingDots />;
   }
-
   if (error) {
     return <Error />;
   }
-
   return (
     <div className='mainContainer'>
       <Router>
@@ -38,6 +36,9 @@ function App() {
             <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
             <Route path='/newprogram' element={<CreateNewProgram />} />
+            <Route path='/workouts' element={<WorkoutOverview />} />
+            <Route path='/programs/:id' element={<ProgramPage />} />
+            <Route path='/myPrograms' element={<MyPrograms />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
         </Box>
@@ -45,5 +46,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

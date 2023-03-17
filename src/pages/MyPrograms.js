@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -6,17 +6,17 @@ import Typography from '@mui/material/Typography';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
-import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import SelfImprovementIcon from '@mui/icons-material/SelfImprovement';
-import AccessibilityNewIcon from '@mui/icons-material/AccessibilityNew';
-import { db } from '../firebase';
-import { getDocs, collection, query, where } from 'firebase/firestore';
+import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
+import { db, auth } from '../firebase';
+import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 import { LoadingDots } from '../components/misc/usefulComponents';
-function WorkoutOverview() {
+function MyPrograms() {
+  const user = auth.currentUser;
   const [firebaseData, setFirebaseData] = useState();
   const loadProgramsFromFirestore = async () => {
     try {
-      const q = query(collection(db, 'programs'), where('private', '==', false));
+      const q = query(collection(db, 'programs'), where('userId', '==', user.uid));
       await getDocs(q).then((querySnapshot) => {
         console.log(querySnapshot);
         querySnapshot.docs.map((doc) => {
@@ -29,9 +29,8 @@ function WorkoutOverview() {
       console.error('Retrieving documents failed" ' + error);
     }
   };
-
   const getIconForWorkoutType = (workoutType) => {
-    if (!workoutType) return <QuestionMarkIcon fontSize='150px' />;
+    if (!workoutType) return null;
     switch (workoutType.toLowerCase()) {
       case 'strength':
         return <FitnessCenterIcon fontSize='150px' />;
@@ -41,8 +40,6 @@ function WorkoutOverview() {
         return <WhatshotIcon fontSize='150px' />;
       case 'flexibility':
         return <SelfImprovementIcon fontSize='150px' />;
-      case 'custom':
-        return <AccessibilityNewIcon fontSize='150px' />;
       default:
         return <QuestionMarkIcon fontSize='150px' />;
     }
@@ -60,6 +57,7 @@ function WorkoutOverview() {
             <Card
               sx={{
                 width: '75vw',
+                maxWidth: '75vw',
                 backgroundColor: '#F5F5F5',
                 borderRadius: '10px',
                 boxShadow: '0 0 10px rgba(0, 0, 0, 0.3)',
@@ -91,4 +89,4 @@ function WorkoutOverview() {
     </div>
   );
 }
-export default WorkoutOverview;
+export default MyPrograms;
