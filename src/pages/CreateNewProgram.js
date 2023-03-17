@@ -4,7 +4,7 @@ import './CreateNewProgram.scss';
 import { auth, db } from '../firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
-import { FormControl, NativeSelect, TextField } from '@mui/material';
+import { FormControl, NativeSelect, TextField, Checkbox, FormControlLabel } from '@mui/material';
 
 export const workoutContext = createContext();
 const allWorkouts = {};
@@ -16,6 +16,7 @@ function CreateNewProgram() {
 
   const [programData, setProgramData] = useState({});
   const [programName, setProgramName] = useState('');
+  const [programVisbility, setProgramVisbility] = useState(false);
   const [programType, setProgramType] = useState('strength');
   const [programDescription, setProgramDescription] = useState('');
 
@@ -26,6 +27,7 @@ function CreateNewProgram() {
   const handleUpdateProgramData = () => {
     setProgramData({
       programName: programName,
+      programVisbility: programVisbility,
       workouts: allWorkouts,
     });
   };
@@ -38,7 +40,7 @@ function CreateNewProgram() {
       };
     }
     handleUpdateProgramData();
-  }, [workoutData, programName]);
+  }, [workoutData, programName, programVisbility]);
 
   const [workouts, setWorkouts] = useState([]);
 
@@ -66,7 +68,7 @@ function CreateNewProgram() {
       await addDoc(collection(db, 'programs'), {
         name: programName,
         description: programDescription,
-        private: false,
+        private: programVisbility,
         createdAt: serverTimestamp(),
         userId: auth.currentUser.uid,
         programType: programType,
@@ -104,6 +106,18 @@ function CreateNewProgram() {
                 <option value={'custom'}>Custom</option>
               </NativeSelect>
             </FormControl>
+            <p>Visbility</p>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={programVisbility}
+                  onChange={(e) => {
+                    setProgramVisbility(e.target.checked);
+                  }}
+                />
+              }
+              label='Private'
+            />
           </div>
           <div className='programInfo'>
             <p>Description</p>
