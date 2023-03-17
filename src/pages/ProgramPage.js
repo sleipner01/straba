@@ -53,6 +53,10 @@ function ProgramPage() {
               marginBottom: '20px',
               marginLeft: '10px',
               marginRight: '10px',
+              transition: 'transform 0.2s ease-in-out',
+              '&:hover': {
+                transform: 'scale(1.02)',
+              },
             }}
           >
             <CardContent>
