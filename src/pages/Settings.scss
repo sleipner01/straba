@@ -1,0 +1,78 @@
+.settingsContainer {
+    height: 100%;
+    padding: 20px 80px 0 20px;
+    max-width: 600px;
+
+
+    .accountInformation {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .imageSection {
+            display: flex;
+            align-items: center;
+    
+            img {
+                width: 100px;
+                height: 100px;
+                border-radius: 20px;
+            }
+    
+            .personIcon {
+                scale: 2.5;
+            }
+
+        }
+
+        .infoSection {
+            width: 368px;
+
+            div {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                margin-bottom: 10px;
+
+                span:first-child {
+                    color: #555;
+                }
+            }
+        }
+    }
+
+    form {
+
+        label {
+            color: #555;
+        }
+
+        button {
+            padding: 2px;
+        }
+    }
+
+    .deleteProfileContainer {
+        margin-top: 40px;
+        width: 368px;
+
+        p {
+            color: #555;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 10px;
+            border: 2px solid black;
+            font-size: 1em;
+            color: white;
+            background-color: rgb(255, 0, 0);
+            transition: 0.02s ease-in;
+
+            &:hover {
+                scale: 1.05;
+            }
+        }
+    }
+
+}

@@ -2,10 +2,11 @@ import { useState, useEffect, useRef } from 'react';
 import { Error } from '../components/misc/usefulComponents';
 import { auth } from '../firebase';
 import { updateProfile, deleteUser } from 'firebase/auth';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
+import { doc, deleteDoc, updateDoc, getDoc } from 'firebase/firestore';
 import { AccountCircle } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
+import './Settings.scss';
 
 const Settings = () => {
   const navigate = useNavigate();
@@ -15,6 +16,10 @@ const Settings = () => {
   const [phoneValid, setPhoneValidState] = useState(false);
   const [errorText, setError] = useState();
   const [imgLoadedSuccessfully, setImgLoadedSuccessfully] = useState(false);
+
+  const [phoneNumber, setPhoneNumberFromFirestore] = useState('');
+  const [latestLogin, setLatestLoginFromFirestore] = useState('');
+  const [accountCreated, setAccountCreatedFromFirestore] = useState('');
 
   const profileImage = useRef();
   const profileIcon = useRef();
@@ -54,6 +59,17 @@ const Settings = () => {
     setPhoneNumber(input);
     setPhoneValidState(phoneValid);
   }
+
+  const retrieveUserDataFromFirestore = async () => {
+    await getDoc(doc(db, 'users', auth.currentUser.uid))
+      .then(() => {
+        console.log('Successully retrieved userdoc');
+        // TODO
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   const updateUserDoc = async (name) => {
     await updateDoc(doc(db, 'users', auth.currentUser.uid), {
@@ -95,20 +111,21 @@ const Settings = () => {
   };
 
   const deleteProfile = async (e) => {
-    e.preventDefault();
-    const userId = auth.currentUser.uid;
-    deleteUser(auth.currentUser)
-      .then(() => {
-        deleteUserDoc(userId);
-        // User deleted.
-        console.log('User deleted');
-        navigate('/login');
-      })
-      .catch((error) => {
-        // An error ocurred
-        console.err(error);
-        setError(error.message);
-      });
+    // if (confirm('Are you sure you want to delete your profile?')) {
+    // const userId = auth.currentUser.uid;
+    // deleteUser(auth.currentUser)
+    //   .then(() => {
+    //     deleteUserDoc(userId);
+    //     // User deleted.
+    //     console.log('User deleted');
+    //     navigate('/login');
+    //   })
+    //   .catch((error) => {
+    //     // An error ocurred
+    //     console.err(error);
+    //     setError(error.message);
+    //   });
+    // }
   };
 
   const updatePhoneNumber = async (e) => {
@@ -127,21 +144,48 @@ const Settings = () => {
   };
 
   return (
-    <div>
+    <div className='settingsContainer'>
       <h1>Settings</h1>
-      <div>
-        <span>Your Name:</span>
-        <span>{auth.currentUser.displayName}</span>
-      </div>
-      <div>
-        <img
-          src={null}
-          onError={() => setImgLoadedSuccessfully(false)}
-          onLoad={() => setImgLoadedSuccessfully(true)}
-          alt='Profile'
-          ref={profileImage}
-        />
-        <AccountCircle className='personIcon' ref={profileIcon} />
+      <div className='accountInformation'>
+        <div className='infoSection'>
+          <div>
+            <span>Name:</span>
+            <span>{auth.currentUser.displayName}</span>
+          </div>
+          <div>
+            <span>Email:</span>
+            <span>{auth.currentUser.email}</span>
+          </div>
+          <div>
+            <span>Phone Number:</span>
+            <span>{phoneNumber ? phoneNumber : ''}</span>
+          </div>
+          <div>
+            <span>Account Created:</span>
+            <span>{accountCreated ? accountCreated : 'Not registered'}</span>
+          </div>
+          <div>
+            <span>Latest Login:</span>
+            <span>{latestLogin ? latestLogin : 'No log exists'}</span>
+          </div>
+          {/* TODO
+             PhoneNumber
+             Latest Login
+             Account Created
+          */}
+        </div>
+        <div className='imageSection'>
+          <img
+            src={null}
+            onError={() => setImgLoadedSuccessfully(false)}
+            onLoad={() => setImgLoadedSuccessfully(true)}
+            alt='Profile'
+            ref={profileImage}
+            width={100}
+            height={100}
+          />
+          <AccountCircle className='personIcon' ref={profileIcon} />
+        </div>
       </div>
       <h2>Update your account information</h2>
       <form>
@@ -178,14 +222,17 @@ const Settings = () => {
         <button disabled={!phoneValid} type='submit' onClick={updatePhoneNumber}>
           Update
         </button>
-
-        <br />
-        <label htmlFor='deleteProfile'>Delete profile</label>
+        {errorText && <Error errorMessage={errorText} />}
+      </form>
+      <div className='deleteProfileContainer'>
+        <h2>Delete profile</h2>
+        <p>
+          This action will delete all user data <br /> and cannot be recovered.
+        </p>
         <br />
         <button onClick={deleteProfile}>Delete profile</button>
         <br />
-        {errorText && <Error errorMessage={errorText} />}
-      </form>
+      </div>
     </div>
   );
 };
