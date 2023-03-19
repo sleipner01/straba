@@ -25,6 +25,10 @@ const Settings = () => {
   const profileIcon = useRef();
 
   useEffect(() => {
+    retrieveUserDataFromFirestore();
+  }, []);
+
+  useEffect(() => {
     if (imgLoadedSuccessfully) {
       displayImage();
     } else {
@@ -62,9 +66,14 @@ const Settings = () => {
 
   const retrieveUserDataFromFirestore = async () => {
     await getDoc(doc(db, 'users', auth.currentUser.uid))
-      .then(() => {
-        console.log('Successully retrieved userdoc');
-        // TODO
+      .then((docSnap) => {
+        if (docSnap.exists()) {
+          console.log('Successully retrieved userdoc');
+          const data = docSnap.data();
+          setPhoneNumberFromFirestore(data.phoneNumber);
+          setAccountCreatedFromFirestore(new Date(data.created.seconds * 1000).toUTCString());
+          setLatestLoginFromFirestore(new Date(data.lastLogin.seconds * 1000).toUTCString());
+        }
       })
       .catch((error) => {
         console.error(error);
@@ -111,21 +120,21 @@ const Settings = () => {
   };
 
   const deleteProfile = async (e) => {
-    // if (confirm('Are you sure you want to delete your profile?')) {
-    // const userId = auth.currentUser.uid;
-    // deleteUser(auth.currentUser)
-    //   .then(() => {
-    //     deleteUserDoc(userId);
-    //     // User deleted.
-    //     console.log('User deleted');
-    //     navigate('/login');
-    //   })
-    //   .catch((error) => {
-    //     // An error ocurred
-    //     console.err(error);
-    //     setError(error.message);
-    //   });
-    // }
+    if (window.confirm('Are you sure you want to delete your profile?')) {
+      const userId = auth.currentUser.uid;
+      deleteUser(auth.currentUser)
+        .then(() => {
+          deleteUserDoc(userId);
+          // User deleted.
+          console.log('User deleted');
+          navigate('/login');
+        })
+        .catch((error) => {
+          // An error ocurred
+          console.err(error);
+          setError(error.message);
+        });
+    }
   };
 
   const updatePhoneNumber = async (e) => {
