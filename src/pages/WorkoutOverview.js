@@ -19,11 +19,9 @@ function WorkoutOverview() {
       const q = query(collection(db, 'programs'), where('private', '==', false));
       await getDocs(q).then((querySnapshot) => {
         console.log(querySnapshot);
-        querySnapshot.docs.map((doc) => {
-          const data = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-          setFirebaseData(data);
-          console.log(data);
-        });
+        const data = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+        setFirebaseData(data);
+        console.log(data);
       });
     } catch (error) {
       console.error('Retrieving documents failed" ' + error);
