@@ -1,124 +1,155 @@
-import { useState } from 'react';
-import { Button, Modal } from '@mui/material';
-import NewActivity from '../components/newActivity/NewActivity';
-import './CreateNewWorkout.scss';
+import { createContext, useEffect, useState } from 'react';
+import NewWorkout from '../components/newWorkout/NewWorkout';
+import './CreateNewProgram.scss';
+import { auth, db } from '../firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
+import { useNavigate } from 'react-router-dom';
+import { FormControl, NativeSelect, TextField, Checkbox, FormControlLabel } from '@mui/material';
+
+export const workoutContext = createContext();
+const allWorkouts = {};
+
 function CreateNewProgram() {
-  const [numActivities, setNumActivities] = useState(1);
-  const [workouts, setWorkouts] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [workoutName, setWorkoutName] = useState('');
-  const [workoutIndex, setWorkoutIndex] = useState(null);
-  const [activities, setActivities] = useState([]);
-  const addNewActivity = () => {
-    setNumActivities((prevNumActivities) => prevNumActivities + 1);
-    setActivities((prevActivities) => [...prevActivities, { name: '', sets: '', reps: '' }]);
+  const navigate = useNavigate();
+
+  const [workoutData, setWorkoutData] = useState({});
+
+  const [programData, setProgramData] = useState({});
+  const [programName, setProgramName] = useState('');
+  const [programVisbility, setProgramVisbility] = useState(false);
+  const [programType, setProgramType] = useState('strength');
+  const [programDescription, setProgramDescription] = useState('');
+
+  const addNewWorkout = () => {
+    setWorkouts(workouts.concat(<NewWorkout key={workouts.length} workoutIndex={workouts.length} />));
   };
-  const handleAddWorkout = () => {
-    setWorkoutIndex(null);
-    setOpen(true);
-  };
-  const handleCloseModal = () => {
-    setOpen(false);
-    const newWorkout = {
-      name: workoutName,
-      activities: activities.map((activity) => ({
-        name: activity.name,
-        sets: activity.sets,
-        reps: activity.reps,
-      })),
-    };
-    if (workoutIndex !== null) {
-      setWorkouts((prevWorkouts) => {
-        const updatedWorkouts = [...prevWorkouts];
-        updatedWorkouts[workoutIndex] = newWorkout;
-        return updatedWorkouts;
-      });
-    } else {
-      setWorkouts((prevWorkouts) => [...prevWorkouts, newWorkout]);
-    }
-    setWorkoutName('');
-    setNumActivities(1);
-    setWorkoutIndex(null);
-    setActivities([]);
-  };
-  const handleEditWorkout = (index) => {
-    setWorkoutIndex(index);
-    setWorkoutName(workouts[index].name);
-    setNumActivities(workouts[index].activities.length);
-    setOpen(true);
-    setActivities(
-      workouts[index].activities.map((activity) => ({
-        name: activity.name,
-        sets: activity.sets,
-        reps: activity.reps,
-      })),
-    );
-  };
-  const handleWorkoutNameChange = (event) => {
-    setWorkoutName(event.target.value);
-  };
-  const handleActivityChange = (event, index, field) => {
-    setActivities((prevActivities) => {
-      const updatedActivities = [...prevActivities];
-      const activity = updatedActivities[index];
-      activity[field] = event.target.value;
-      return updatedActivities;
+
+  const handleUpdateProgramData = () => {
+    setProgramData({
+      programName: programName,
+      programVisbility: programVisbility,
+      workouts: allWorkouts,
     });
   };
-  const activityElements = activities.map((activity, index) => (
-    <div key={index}>
-      <NewActivity
-        nameValue={activity.name}
-        setsValue={activity.sets}
-        repsValue={activity.reps}
-        onNameChange={(event) => handleActivityChange(event, index, 'name')}
-        onSetsChange={(event) => handleActivityChange(event, index, 'sets')}
-        onRepsChange={(event) => handleActivityChange(event, index, 'reps')}
-      />
-      <br />
-    </div>
-  ));
+
+  useEffect(() => {
+    if (workoutData.workoutIndex !== undefined) {
+      allWorkouts[workoutData.workoutIndex] = {
+        workoutName: workoutData.workoutName,
+        activities: workoutData.activities,
+      };
+    }
+    handleUpdateProgramData();
+  }, [workoutData, programName, programVisbility]);
+
+  const [workouts, setWorkouts] = useState([]);
+
+  const saveProgram = async () => {
+    console.log('Saved workouts ' + JSON.stringify(allWorkouts));
+    let workoutInfo = [];
+    Object.entries(allWorkouts).map((workout) => {
+      let activityInfo = [];
+      Object.entries(workout[1].activities).map((activity) => {
+        activityInfo.push({
+          activityName: activity[1].activityName,
+          field1Type: activity[1].field1Type,
+          field1Value: activity[1].field1Value,
+          field2Type: activity[1].field2Type,
+          field2Value: activity[1].field2Value,
+          description: activity[1].description,
+        });
+      });
+      workoutInfo.push({
+        workoutName: workout[1].workoutName,
+        activities: activityInfo,
+      });
+    });
+    try {
+      await addDoc(collection(db, 'programs'), {
+        name: programName,
+        description: programDescription,
+        private: programVisbility,
+        createdAt: serverTimestamp(),
+        userId: auth.currentUser.uid,
+        programType: programType,
+        workouts: workoutInfo,
+      });
+    } catch {
+      alert('Something went wrong saving workout.');
+    }
+    navigate('/programs');
+  };
+
   return (
-    <div className='background'>
-      <h3 className='titleText'>Program name:</h3>
-      <input className='titleChoosen' placeholder='Program name' />
-      <div>
-        <Button onClick={handleAddWorkout} variant='contained'>
-          Add workout
-        </Button>
-        {workouts.map((workout, index) => (
-          <div key={index}>
-            <h3>{workout.name}</h3>
-            <Button onClick={() => handleEditWorkout(index)}>Edit</Button>
-            {workout.activities.map((activity, index) => (
-              <p key={index}>
-                {activity.name} - {activity.sets} x {activity.reps}
-              </p>
-            ))}
-          </div>
-        ))}
-      </div>
-      <Modal open={open} onClose={() => setOpen(false)}>
-        <div className='modal'>
-          <h3 className='titleText'>Workout name:</h3>
+    <workoutContext.Provider value={{ workoutData, setWorkoutData }}>
+      <div className='background'>
+        <div className='programContent'>
+          <h3 className='titleText'>Program name:</h3>
           <input
-            className='titleChoosen'
-            placeholder='Workout name'
-            value={workoutName}
-            onChange={handleWorkoutNameChange}
-          />
-          <div>
-            <Button onClick={addNewActivity} variant='contained'>
-              Add activity
-            </Button>
-            <div className='activityWrapper'>{activityElements}</div>
+            onChange={(e) => setProgramName(e.target.value)}
+            className='titleChosen'
+            placeholder='Program name'
+          ></input>
+          <div className='programInfo'>
+            <p>Program type</p>
+            <FormControl sx={{ m: 1, width: '200px' }} variant='standard'>
+              <NativeSelect
+                id='setType'
+                defaultValue='strength'
+                onChange={(e) => {
+                  setProgramType(e.target.value);
+                }}
+              >
+                <option value={'strength'}>Strength training</option>
+                <option value={'cardio'}>Cardio</option>
+                <option value={'flexibility'}>Flexibility</option>
+                <option value={'custom'}>Custom</option>
+              </NativeSelect>
+            </FormControl>
+            <p>Visbility</p>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={programVisbility}
+                  onChange={(e) => {
+                    setProgramVisbility(e.target.checked);
+                  }}
+                />
+              }
+              label='Private'
+            />
           </div>
-          <Button variant='contained' onClick={handleCloseModal}>
-            Save workout
-          </Button>
+          <div className='programInfo'>
+            <p>Description</p>
+            <TextField
+              value={programDescription}
+              inputProps={{
+                sx: {
+                  fontSize: '15px',
+                  padding: '1px 3px',
+                  marginTop: '15px',
+                  width: 600,
+                },
+              }}
+              variant='standard'
+              multiline
+              maxRows={5}
+              onChange={(e) => setProgramDescription(e.target.value)}
+            />
+          </div>
+          <div className='workoutFeed'>
+            <button onClick={addNewWorkout} className='addWorkout'>
+              New workout +
+            </button>
+            <div className='workoutWrapper'>{workouts}</div>
+          </div>
+          <button onClick={saveProgram} className='addWorkout'>
+            Save program
+          </button>
         </div>
-      </Modal>
-    </div>
+      </div>
+    </workoutContext.Provider>
   );
 }
+
 export default CreateNewProgram;
