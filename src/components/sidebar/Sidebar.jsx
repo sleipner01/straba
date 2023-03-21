@@ -1,6 +1,7 @@
 import './sidebar.scss';
 import { useEffect, useRef } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
+import { ManageAccounts } from '@mui/icons-material';
 import { FitnessCenter, Person } from '@mui/icons-material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { auth } from '../../firebase';
@@ -61,6 +62,12 @@ export default function Sidebar() {
             </NavLink>
           </li>
           <hr className='sidebarLine' />
+          <li className='sidebarListItem'>
+            <NavLink to='/settings' className='navLink'>
+              <ManageAccounts className='sidebarIcon' />
+              <span className='sidebarListItemText'>Settings</span>
+            </NavLink>
+          </li>
           <li className='sidebarListItem'>
             <NavLink onClick={handleLogout} className='navLink'>
               <LogoutIcon className='sidebarIcon' />
