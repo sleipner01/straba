@@ -10,7 +10,7 @@ const Home = () => {
 
   const getFirebaseData = async () => {
     const userRef = doc(collection(getFirestore(), 'users'), user.uid);
-    console.log("HEnter streak");
+    console.log('HEnter streak');
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
       setTrainingCount(Number(docSnap.data().streak));
@@ -27,12 +27,12 @@ const Home = () => {
   const updateStreakOnFirebase = async () => {
     const userRef = doc(getFirestore(), 'users', user.uid);
 
-    console.log("updating doc");
+    console.log('updating doc');
 
     await updateDoc(userRef, {
-      streak: trainingCount + 1
+      streak: trainingCount + 1,
     });
-  } 
+  };
 
   const handleYesClick = () => {
     updateStreakOnFirebase();
