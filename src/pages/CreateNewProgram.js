@@ -73,6 +73,7 @@ function CreateNewProgram() {
         userId: auth.currentUser.uid,
         programType: programType,
         workouts: workoutInfo,
+        active: false,
       });
     } catch {
       alert('Something went wrong saving workout.');
