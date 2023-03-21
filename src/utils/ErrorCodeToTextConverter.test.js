@@ -13,7 +13,7 @@ test('Known error', async () => {
 
 test('Unknown error', async () => {
   act(() => {
-    errorCodeToTextConverter('wierd error');
+    errorCodeToTextConverter('weird error');
   });
   await waitFor(() => {
     expect('Unknown error. Try again later');
