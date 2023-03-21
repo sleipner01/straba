@@ -10,10 +10,10 @@ const Home = () => {
 
   const getFirebaseData = async () => {
     const userRef = doc(collection(getFirestore(), 'users'), user.uid);
-    console.log('HEnter streak');
     const docSnap = await getDoc(userRef);
     if (docSnap.exists()) {
-      setTrainingCount(Number(docSnap.data().streak));
+      const storedStreak = docSnap.data().streak;
+      setTrainingCount(storedStreak ? Number(storedStreak) : 0);
     } else {
       console.log('No such document!');
     }
@@ -26,8 +26,6 @@ const Home = () => {
 
   const updateStreakOnFirebase = async () => {
     const userRef = doc(getFirestore(), 'users', user.uid);
-
-    console.log('updating doc');
 
     await updateDoc(userRef, {
       streak: trainingCount + 1,
