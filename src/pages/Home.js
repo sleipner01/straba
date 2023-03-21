@@ -1,50 +1,42 @@
 import { useState, useEffect } from 'react';
 import './Home.scss';
 import { auth } from '../firebase';
-import { getFirestore, collection, doc } from 'firebase/firestore';
+import { getFirestore, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const Home = () => {
-  const [trainingCount, setTrainingCount] = useState(10);
+  const [trainingCount, setTrainingCount] = useState(0);
   const [buttonClicked, setButtonClicked] = useState(false);
   const user = auth.currentUser;
 
-  useEffect(() => {
-    // Listen for changes to the user's authentication state
-    const unsubscribe = auth.onAuthStateChanged(
-      (user) => {
-        if (user) {
-          // Retrieve the user's streak attribute from the database
-          const userRef = doc(collection(getFirestore(), 'users'), user.uid);
-          userRef.onSnapshot(
-            (snapshot) => {
-              const userData = snapshot.data();
-              if (userData && userData.streak) {
-                setTrainingCount(userData.streak);
-              } else {
-                console.error('Error: User data or streak attribute not found.');
-              }
-            },
-            (error) => {
-              console.error('Error retrieving user data:', error);
-            },
-          );
-        } else {
-          setTrainingCount(10);
-        }
-      },
-      (error) => {
-        console.error('Error listening for authentication state changes:', error);
-      },
-    );
+  const getFirebaseData = async () => {
+    const userRef = doc(collection(getFirestore(), 'users'), user.uid);
+    console.log("HEnter streak");
+    const docSnap = await getDoc(userRef);
+    if (docSnap.exists()) {
+      setTrainingCount(Number(docSnap.data().streak));
+    } else {
+      console.log('No such document!');
+    }
+  };
 
-    // Cleanup function
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+  useEffect(() => {
+    // Retrieve the user's streak attribute from the database
+    getFirebaseData();
+  });
+
+  const updateStreakOnFirebase = async () => {
+    const userRef = doc(getFirestore(), 'users', user.uid);
+
+    console.log("updating doc");
+
+    await updateDoc(userRef, {
+      streak: trainingCount + 1
+    });
+  } 
 
   const handleYesClick = () => {
-    setTrainingCount(trainingCount + 1);
+    updateStreakOnFirebase();
+
     const trainingCountEl = document.getElementById('training-count');
     if (trainingCountEl) {
       trainingCountEl.classList.add('celebrate');
