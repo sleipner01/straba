@@ -1,8 +1,9 @@
 .background {
   width: 100%;
-  min-height: 100vh;
+  min-height: 200vh;
   background-image: url('../../public/BrownMountains.jpg');
   background-repeat: no-repeat;
+  background-attachment: fixed;
   background-color: #261f17;
 }
 
