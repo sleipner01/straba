@@ -41,8 +41,8 @@ function MyPrograms() {
       const q = query(
         collection(db, 'programs'),
         where('userId', '==', user.uid),
+        where('active', '!=', ''),
         orderBy('active', 'desc'),
-        orderBy('name', 'asc'),
       );
       await getDocs(q).then((querySnapshot) => {
         console.log(querySnapshot);
