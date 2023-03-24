@@ -21,6 +21,8 @@ const SignupForm = () => {
 
   useEffect(() => {
     checkSubmitValid();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [emailValid, nameValid, passwordValid]);
 
   function checkSubmitValid() {
@@ -55,6 +57,7 @@ const SignupForm = () => {
       await setDoc(doc(db, 'users', user.uid), {
         name: name,
         email: email,
+        streak: 0,
         lastLogin: serverTimestamp(),
         created: serverTimestamp(),
       });

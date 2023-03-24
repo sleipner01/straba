@@ -2,7 +2,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import CreateNewProgram from './pages/CreateNewProgram';
-import CreateNewWorkout from './pages/CreateNewWorkout';
+import Settings from './pages/Settings';
 import { BrowserRouter as Router, Navigate, Routes, Route } from 'react-router-dom';
 import './App.scss';
 import Sidebar from './components/sidebar/Sidebar';
@@ -13,18 +13,16 @@ import { Error, LoadingDots, NoMatch } from './components/misc/usefulComponents'
 import { useAuthState } from 'react-firebase-hooks/auth';
 import WorkoutOverview from './pages/WorkoutOverview';
 import { Box } from '@mui/material';
-
+import ProgramPage from './pages/ProgramPage';
+import MyPrograms from './pages/MyPrograms';
 function App() {
   const [user, loading, error] = useAuthState(auth);
-
   if (loading) {
     return <LoadingDots />;
   }
-
   if (error) {
     return <Error />;
   }
-
   return (
     <div className='mainContainer'>
       <Router>
@@ -34,12 +32,15 @@ function App() {
           <Routes>
             <Route element={<Authenticated auth={user} />}>
               <Route exact path='/' element={<Home />} />
-              <Route exact path='/workouts' element={<WorkoutOverview />} />
+              <Route exact path='/settings' element={<Settings />} />
+              <Route exact path='/programs' element={<WorkoutOverview />} />
             </Route>
             <Route exact path='/login' element={user ? <Navigate to='/' /> : <Login />} />
             <Route exact path='/signup' element={user ? <Navigate to='/' /> : <Signup />} />
-            <Route path='/createNewProgram' element={<CreateNewProgram />} />
-            <Route path='/createNewWorkout' element={<CreateNewWorkout />} />
+            <Route path='/newprogram' element={<CreateNewProgram />} />
+            <Route path='/workouts' element={<WorkoutOverview />} />
+            <Route path='/programs/:id' element={<ProgramPage />} />
+            <Route path='/myPrograms' element={<MyPrograms />} />
             <Route path='*' element={<NoMatch />} />
           </Routes>
         </Box>
@@ -47,5 +48,4 @@ function App() {
     </div>
   );
 }
-
 export default App;

@@ -1,0 +1,95 @@
+.background {
+  width: 100%;
+  min-height: 200vh;
+  background-image: url('../../public/BrownMountains.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #261f17;
+}
+
+.activity {
+  padding-bottom: 30px;
+}
+
+.backgroundImage {
+  width: 10%;
+  height: 10%;
+}
+
+.titleText {
+  font-size: 30px;
+  margin: 0px;
+  // padding-left: 10px;
+}
+
+.titleChosen {
+  margin: 10px;
+  margin-top: 30px;
+  padding: 5px;
+  // padding-left: 10px;
+  font-size: 15px;
+  border: none;
+  border-bottom: 1.5px solid black;
+  border-radius: 10px;
+}
+
+.addActivity {
+  font-size: 15px;
+  margin: 10px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding: 100px;
+  border: none;
+  border-radius: 15px;
+  padding: 5px;
+  // padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(111, 217, 178, 0.8);
+}
+
+.addWorkout {
+  font-size: 15px;
+  margin: 10px;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding: 100px;
+  border: none;
+  border-radius: 15px;
+  padding: 5px;
+  // padding-left: 15px;
+  padding-right: 15px;
+  background-color: rgba(111, 217, 178, 0.8);
+}
+
+.add:hover {
+  transform: scale(1.05);
+}
+
+.activityWrapper {
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.programInfo {
+  font-weight: bolder;
+  font-size: 1.25em;
+}
+
+.workoutFeed {
+  margin-bottom: 15px;
+}
+
+.workoutWrapper > div {
+  border-top: solid #261f17;
+  width: 50%;
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.programContent {
+  padding-left: 30px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}

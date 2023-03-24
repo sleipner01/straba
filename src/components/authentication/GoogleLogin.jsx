@@ -14,6 +14,7 @@ const GoogleLogin = () => {
         email: user.email,
         emailVerified: user.emailVerified,
         phoneNumber: user.phoneNumber,
+        streak: 0,
         lastLogin: serverTimestamp(),
         created: serverTimestamp(),
       });
