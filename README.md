@@ -1,6 +1,6 @@
 # Straβa
 ## Description
-To be described
+Social training application to log or plan sessions.
 
 ***
 
